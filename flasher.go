@@ -16,7 +16,6 @@
 package main
 
 import (
-	"archive/zip"
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
@@ -29,6 +28,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 	"sync"
@@ -163,18 +163,29 @@ func getFactoryFolders() map[string]string {
 	deviceFactoryFolderMap := map[string]string{}
 	for _, file := range files {
 		file := file.Name()
-		if strings.Contains(file, "factory") && strings.HasSuffix(file, ".zip") {
-			if strings.HasPrefix(file, "jasmine") {
-				platformToolsVersion = "29.0.6"
-			}
-			extracted, err := extractZip(path.Base(file), cwd)
+		fileInfo, _ := os.Stat(file)
+		if strings.Contains(file, "factory") && !fileInfo.IsDir() && filepath.Ext(file) != "" {
+			device := strings.Split(file,"-")[0]
+			var factoryFolder string
+			_ = archiver.Walk(file, func(f archiver.File) error {
+				if strings.Contains(f.Name(), device) && f.IsDir() {
+					factoryFolder = f.Name()
+					_ = os.RemoveAll(factoryFolder)
+					return errors.New("")
+				}
+				return nil
+			})
+			fmt.Println("Extracting " + file)
+			err = archiver.Unarchive(file, cwd)
 			if err != nil {
-				errorln("Cannot continue without a factory image. Exiting...", false)
 				errorln(err, true)
 			}
-			device := strings.Split(file, "-")[0]
+			if device == "jasmine" {
+				device += "_sprout"
+				platformToolsVersion = "29.0.6"
+			}
 			if _, exists := deviceFactoryFolderMap[device]; !exists {
-				deviceFactoryFolderMap[device] = extracted[0]
+				deviceFactoryFolderMap[device] = factoryFolder
 			} else {
 				errorln("More than one factory image available for "+device, true)
 			}
@@ -233,7 +244,8 @@ func getPlatformTools() error {
 	fastboot = exec.Command(fastbootPath)
 	// Ensure that no platform tools are running before attempting to overwrite them
 	killPlatformTools()
-	_, err = extractZip(platformToolsZip, cwd)
+	_ = os.RemoveAll("platform-tools")
+	err = archiver.Unarchive(platformToolsZip, cwd)
 	return err
 }
 
@@ -425,48 +437,6 @@ func downloadFile(url string) error {
 	_, err = io.Copy(out, io.TeeReader(resp.Body, counter))
 	fmt.Println()
 	return err
-}
-
-func extractZip(src string, destination string) ([]string, error) {
-	fmt.Println("Extracting " + src)
-	var filenames []string
-	r, err := zip.OpenReader(src)
-	if err != nil {
-		return filenames, err
-	}
-	defer r.Close()
-
-	for _, f := range r.File {
-		fpath := filepath.Join(destination, f.Name)
-		if !strings.HasPrefix(fpath, filepath.Clean(destination)+string(os.PathSeparator)) {
-			return filenames, fmt.Errorf("%s is an illegal filepath", fpath)
-		}
-		filenames = append(filenames, fpath)
-		if f.FileInfo().IsDir() {
-			os.MkdirAll(fpath, os.ModePerm)
-			continue
-		}
-		if err = os.MkdirAll(filepath.Dir(fpath), os.ModePerm); err != nil {
-			return filenames, err
-		}
-		outFile, err := os.OpenFile(fpath,
-			os.O_WRONLY|os.O_CREATE|os.O_TRUNC,
-			f.Mode())
-		if err != nil {
-			return filenames, err
-		}
-		rc, err := f.Open()
-		if err != nil {
-			return filenames, err
-		}
-		_, err = io.Copy(outFile, rc)
-		outFile.Close()
-		rc.Close()
-		if err != nil {
-			return filenames, err
-		}
-	}
-	return filenames, nil
 }
 
 func verifyZip(zipfile, sha256sum string) error {
