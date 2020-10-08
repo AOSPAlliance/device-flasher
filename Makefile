@@ -7,7 +7,7 @@ NAMES := $(PROGRAM_NAME) $(PROGRAM_DEBUG_NAME) $(PARALLEL_NAME) $(PARALLEL_DEBUG
 PROGRAMS := $(foreach PROG,$(NAMES),$(foreach EXT,$(EXTENSIONS),$(PROG).$(EXT)))
 VERSION := $(shell git describe --always --tags --dirty='-dirty')
 LDFLAGS := -ldflags "-X main.version=$(VERSION)"
-COMMON_ARGS := GOARCH=amd64
+COMMON_ARGS := GOARCH=amd64 CGO_ENABLED=0
 
 $(PROGRAM_NAME).%: TAGS := -tags release
 $(PROGRAM_DEBUG_NAME).%: TAGS := -tags debug
