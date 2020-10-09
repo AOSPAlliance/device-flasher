@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94a96946_27a457ae",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-09T00:35:01Z",
+      "side": 1,
+      "message": "I think for this commit, we could keep the same condition as before.",
+      "revId": "3b97a7b0662caf789adb5427fb8159e18a345eb7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d1609c_5d077f83",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-09T00:35:01Z",
+      "side": 1,
+      "message": "Here as well, just to avoid any extra changes.",
+      "revId": "3b97a7b0662caf789adb5427fb8159e18a345eb7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
