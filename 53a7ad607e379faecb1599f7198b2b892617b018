@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2370298f_733ef366",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-09T00:26:11Z",
+      "side": 1,
+      "message": "Dan, did you want to just leave it at this and drop the rest?\ngo.sum has gotten huge.",
+      "revId": "53a7ad607e379faecb1599f7198b2b892617b018",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
