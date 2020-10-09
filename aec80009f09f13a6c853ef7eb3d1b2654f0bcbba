@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe17e3b6_614d9269",
+        "filename": "README.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-09T00:28:48Z",
+      "side": 1,
+      "message": "I feel like this has gotten confusing, and it\u0027d be easier to just keep using \u0027device-flasher\u0027 as an example, and just list all the variants somewhere below.",
+      "revId": "aec80009f09f13a6c853ef7eb3d1b2654f0bcbba",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
