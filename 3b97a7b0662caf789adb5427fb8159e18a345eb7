@@ -33,6 +33,24 @@
       "revId": "3b97a7b0662caf789adb5427fb8159e18a345eb7",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f384b5_263611e8",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-09T00:44:15Z",
+      "side": 1,
+      "message": "I think this one is better nonetheless. Assumption is that all factory images start with the device name and followed by a non-alphabetic character. I can keep it in another commit if preferred though",
+      "parentUuid": "99d1609c_5d077f83",
+      "revId": "3b97a7b0662caf789adb5427fb8159e18a345eb7",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
