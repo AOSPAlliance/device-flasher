@@ -84,7 +84,7 @@ func errorln(err interface{}, fatal bool) {
 	log.Close()
 	if fatal {
 		cleanup()
-		fmt.Println("Press enter to exit.")
+		warnln("Press ENTER to exit")
 		_, _ = fmt.Scanln(&input)
 		os.Exit(1)
 	}
@@ -110,11 +110,11 @@ func main() {
 	// Map device codenames to their corresponding extracted factory image folders
 	deviceFactoryFolderMap = getFactoryFolders()
 	if len(deviceFactoryFolderMap) < 1 {
-		errorln(errors.New("Cannot continue without a device factory image. Exiting..."), true)
+		errorln(errors.New("Cannot continue without a device factory image"), true)
 	}
 	err := getPlatformTools()
 	if err != nil {
-		errorln("Cannot continue without Android platform tools. Exiting...", false)
+		errorln("Cannot continue without Android platform tools", false)
 		errorln(err, true)
 	}
 	if OS == "linux" {
@@ -139,9 +139,9 @@ func main() {
 	// Map serial numbers to device codenames by extracting them from adb and fastboot command output
 	devices := getDevices()
 	if len(devices) == 0 {
-		errorln(errors.New("No devices to be flashed. Exiting..."), true)
+		errorln(errors.New("No devices to be flashed"), true)
 	} else if !PARALLEL && len(devices) > 1 {
-		errorln(errors.New("More than one device detected. Exiting..."), true)
+		errorln(errors.New("More than one device detected"), true)
 	}
 	fmt.Println()
 	fmt.Println("Devices to be flashed: ")
@@ -254,7 +254,7 @@ func checkUdevRules() {
 	if os.IsNotExist(err) {
 		err = exec.Command("sudo", "mkdir", RULES_PATH).Run()
 		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
+			errorln("Cannot continue without udev rules", false)
 			errorln(err, true)
 		}
 	}
@@ -262,12 +262,12 @@ func checkUdevRules() {
 	if os.IsNotExist(err) {
 		err = ioutil.WriteFile(RULES_FILE, []byte(UDEV_RULES), 0644)
 		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
+			errorln("Cannot continue without udev rules", false)
 			errorln(err, true)
 		}
 		err = exec.Command("sudo", "cp", RULES_FILE, RULES_PATH).Run()
 		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
+			errorln("Cannot continue without udev rules", false)
 			errorln(err, true)
 		}
 		_ = exec.Command("sudo", "udevadm", "control", "--reload-rules").Run()
