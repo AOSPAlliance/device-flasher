@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "febca412_6eca30f4",
+        "filename": "internal/platformtools/adb/adb.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:08:46Z",
+      "side": 1,
+      "message": "this is common to adb and fastboot. can it be put in \"parent class\"?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 1
+      },
+      "revId": "a33be1d44bdb68eccb133b3d9fa9e177095f1915",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc92e10c_fce0cb90",
+        "filename": "internal/platformtools/adb/adb.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:08:46Z",
+      "side": 1,
+      "message": "I\u0027ll need to check docs for combinedOutput but in some cases we have to run a command and return immediately",
+      "range": {
+        "startLine": 67,
+        "startChar": 12,
+        "endLine": 67,
+        "endChar": 26
+      },
+      "revId": "a33be1d44bdb68eccb133b3d9fa9e177095f1915",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb93e62_e6cab00c",
+        "filename": "internal/platformtools/fastboot/fastboot.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:08:46Z",
+      "side": 1,
+      "message": "this is common to adb and fastboot. can it be put in \"parent class\"?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 1
+      },
+      "revId": "a33be1d44bdb68eccb133b3d9fa9e177095f1915",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ad9f18b_fd776fe0",
+        "filename": "internal/platformtools/fastboot/fastboot.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:08:46Z",
+      "side": 1,
+      "message": "I\u0027ll need to check docs for combinedOutput but in some cases we have to run a command and return immediately",
+      "range": {
+        "startLine": 119,
+        "startChar": 18,
+        "endLine": 119,
+        "endChar": 32
+      },
+      "revId": "a33be1d44bdb68eccb133b3d9fa9e177095f1915",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4a3857_c99744b7",
+        "filename": "internal/platformtools/platformtools.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:08:46Z",
+      "side": 1,
+      "message": "these are only valid for one version. currently the flasher supports two due to the a2 :/ I personally don\u0027t like supporting more than one but we may not have a choice",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 22,
+        "endChar": 83
+      },
+      "revId": "a33be1d44bdb68eccb133b3d9fa9e177095f1915",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
