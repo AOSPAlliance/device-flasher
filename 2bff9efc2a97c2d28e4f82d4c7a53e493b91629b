@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce8ec450_1df30d0d",
+        "filename": "internal/flash/flash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:56:39Z",
+      "side": 1,
+      "message": "as discussed this has to happen before extracting platform tools",
+      "range": {
+        "startLine": 77,
+        "startChar": 1,
+        "endLine": 77,
+        "endChar": 25
+      },
+      "revId": "2bff9efc2a97c2d28e4f82d4c7a53e493b91629b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "513c9dec_a2aa33ae",
+        "filename": "internal/flash/flash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:56:39Z",
+      "side": 1,
+      "message": "would this print out for each device in a parallel setting? need to keep in mind what we print in a concurrent setting to not be too confusing if possible. and when necessary, then currently we print for which serial number something is happening to keep track",
+      "range": {
+        "startLine": 84,
+        "startChar": 1,
+        "endLine": 84,
+        "endChar": 54
+      },
+      "revId": "2bff9efc2a97c2d28e4f82d4c7a53e493b91629b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35d208b4_6b816ceb",
+        "filename": "internal/flash/flash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:56:39Z",
+      "side": 1,
+      "message": "in the latest version of getDevices in master we accumulate the devices in adb and fastboot (currently in a map to ensure no duplicates)",
+      "range": {
+        "startLine": 159,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "2bff9efc2a97c2d28e4f82d4c7a53e493b91629b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
