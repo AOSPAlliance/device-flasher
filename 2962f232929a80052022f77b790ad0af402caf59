@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "32447fc2_2e5e0083",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "interesting. i can make this change, but i unfortunately don\u0027t have a windows hosts to test on.",
+      "parentUuid": "3e627c91_55c4ac69",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "993d4541_b721477d",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d909a4ab_a503f803",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "993d4541_b721477d",
+      "range": {
+        "startLine": 56,
+        "startChar": 4,
+        "endLine": 56,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "59b16c2a_1e4db8b3",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "881d0b40_f02d0895",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0c230d57_d35de5ff",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9ab8d0e_7cdf01e3",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0c230d57_d35de5ff",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "76d79983_67923423",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3d1c5c17_33282806",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57c6b166_06d24e8d",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -137,6 +257,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0e519a8_3e05aa08",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "57c6b166_06d24e8d",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "b8ffb8d0_206014b3",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1fa3e98f_e96e1ea8",
+      "range": {
+        "startLine": 118,
+        "startChar": 4,
+        "endLine": 118,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1d3d9c2_bad25d5d",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e78c8a0f_180d160f",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d1d3d9c2_bad25d5d",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 33
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3f6e96c_0facd722",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -197,6 +389,30 @@
       "writtenOn": "2020-10-13T15:18:59Z",
       "side": 1,
       "message": "I consider this case a minor issue.\nMust keep in mind that different devices respond differently. We send the start command for reboot instead of run because some devices automatically reboot after locking for example",
+      "range": {
+        "startLine": 137,
+        "startChar": 3,
+        "endLine": 137,
+        "endChar": 17
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82636e61_85b209b6",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "that\u0027s a good point. i\u0027ll just warn and make this non fatal. i want to add timeouts to command execution in a future change and this might be a good candidate.",
+      "parentUuid": "a3f6e96c_0facd722",
       "range": {
         "startLine": 137,
         "startChar": 3,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "33a9960c_d769710d",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "I\u0027ll need to play around with this on a linux host. I have a few laying around that should be sufficient for testing.",
+      "parentUuid": "ed1ca133_e0b6f11e",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 29
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d300aeb4_c9ed0314",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -252,6 +492,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da1142ea_b22ae831",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-13T16:54:59Z",
+      "side": 1,
+      "message": "in current setup, if adb succeeds at getting device details, it will never call fastboot.",
+      "parentUuid": "d300aeb4_c9ed0314",
+      "range": {
+        "startLine": 217,
+        "startChar": 3,
+        "endLine": 217,
+        "endChar": 63
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
     }
   ]
 }
