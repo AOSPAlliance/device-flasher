@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edea9eb0_fffea0d3",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:17:42Z",
+      "side": 1,
+      "message": "what\u0027s the diff?",
+      "range": {
+        "startLine": 55,
+        "startChar": 1,
+        "endLine": 58,
+        "endChar": 2
+      },
+      "revId": "eab3fe8976751534622d720cb00f2f2b0c4d7dc2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
