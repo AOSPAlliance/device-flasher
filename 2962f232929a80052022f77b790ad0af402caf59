@@ -425,6 +425,30 @@
     },
     {
       "key": {
+        "uuid": "9551d576_3b881397",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:22:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "82636e61_85b209b6",
+      "range": {
+        "startLine": 137,
+        "startChar": 3,
+        "endLine": 137,
+        "endChar": 17
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed1ca133_e0b6f11e",
         "filename": "internal/flash/flash_test.go",
         "patchSetId": 1
@@ -516,6 +540,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "070b6713_98aa9421",
+        "filename": "internal/flash/flash_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:22:07Z",
+      "side": 1,
+      "message": "we\u0027re querying for devices in mixed modes on master branch atm. so it will start by getting devices that are in adb and then add the ones that are in fastboot. we support flashing from both states",
+      "parentUuid": "da1142ea_b22ae831",
+      "range": {
+        "startLine": 217,
+        "startChar": 3,
+        "endLine": 217,
+        "endChar": 63
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
