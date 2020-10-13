@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1cf1cba_b92aca4f",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:11:44Z",
+      "side": 1,
+      "message": "might be best to hardcode to linux? not sure, the if condition handles this fine anyway",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "c5c19593df04caf8e9d6abb55484a447e026a437",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "30998bf6_fb7d2b78",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T18:11:44Z",
+      "side": 1,
+      "message": "just host or split the word :P",
+      "range": {
+        "startLine": 57,
+        "startChar": 41,
+        "endLine": 57,
+        "endChar": 48
+      },
+      "revId": "c5c19593df04caf8e9d6abb55484a447e026a437",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
