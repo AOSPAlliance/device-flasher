@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97800889_6377a819",
+        "filename": "Makefile",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-13T17:59:34Z",
+      "side": 1,
+      "message": "this blocks us from using the -race flag iirc\nit wasn\u0027t working anyway for other reasons but would be good if we could enable that flag at some point",
+      "range": {
+        "startLine": 7,
+        "startChar": 28,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "089dc75f08f1cab3517533af9b87a9a18773fbeb",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
