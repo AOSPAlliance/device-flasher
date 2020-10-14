@@ -22,6 +22,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16bc589a_00d0d4fc",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-14T07:49:04Z",
+      "side": 0,
+      "message": "this was conflicting with a package name, and the my current approach is that platform-tools and factory images are going to be extracted in temp directories, so they shouldn\u0027t end up here anyways.",
+      "parentUuid": "7bd40c5b_32688038",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
