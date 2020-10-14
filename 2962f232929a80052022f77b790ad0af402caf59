@@ -46,6 +46,30 @@
       "revId": "2962f232929a80052022f77b790ad0af402caf59",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c6a2e92_1378af55",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-14T15:51:26Z",
+      "side": 0,
+      "message": "does this handle the original zips themselves? also for the temp directory is it within the working dir?",
+      "parentUuid": "16bc589a_00d0d4fc",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "2962f232929a80052022f77b790ad0af402caf59",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
