@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e8e699a_ae7653e0",
+        "filename": "flasher.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-16T18:54:26Z",
+      "side": 1,
+      "message": "looks like this should be fine to stay where it is given that getPlatformTools kills them and the adb server is (re)started after",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 123,
+        "endChar": 2
+      },
+      "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
