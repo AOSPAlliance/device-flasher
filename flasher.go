@@ -106,6 +106,10 @@ func cleanup() {
 func main() {
 	defer cleanup()
 	_ = os.Remove("error.log")
+	if OS == "linux" {
+		// Linux weirdness
+		checkUdevRules()
+	}
 	fmt.Println("Android Factory Image Flasher version " + version)
 	// Map device codenames to their corresponding extracted factory image folders
 	deviceFactoryFolderMap = getFactoryFolders()
@@ -116,10 +120,6 @@ func main() {
 	if err != nil {
 		errorln("Cannot continue without Android platform tools", false)
 		errorln(err, true)
-	}
-	if OS == "linux" {
-		// Linux weirdness
-		checkUdevRules()
 	}
 	platformToolCommand := *adb
 	platformToolCommand.Args = append(adb.Args, "start-server")
@@ -246,7 +246,7 @@ func checkUdevRules() {
 			errorln(err, true)
 		}
 	}
-	_, err = os.Stat(RULES_FILE)
+	_, err = os.Stat(RULES_PATH + RULES_FILE)
 	if os.IsNotExist(err) {
 		err = ioutil.WriteFile(RULES_FILE, []byte(UDEV_RULES), 0644)
 		if err != nil {
