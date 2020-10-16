@@ -246,21 +246,18 @@ func checkUdevRules() {
 			errorln(err, true)
 		}
 	}
-	_, err = os.Stat(RULES_FILE)
-	if os.IsNotExist(err) {
-		err = ioutil.WriteFile(RULES_FILE, []byte(UDEV_RULES), 0644)
-		if err != nil {
-			errorln("Cannot continue without udev rules", false)
-			errorln(err, true)
-		}
-		err = exec.Command("sudo", "cp", RULES_FILE, RULES_PATH).Run()
-		if err != nil {
-			errorln("Cannot continue without udev rules", false)
-			errorln(err, true)
-		}
-		_ = exec.Command("sudo", "udevadm", "control", "--reload-rules").Run()
-		_ = exec.Command("sudo", "udevadm", "trigger").Run()
+	err = ioutil.WriteFile(RULES_FILE, []byte(UDEV_RULES), 0644)
+	if err != nil {
+		errorln("Cannot continue without udev rules", false)
+		errorln(err, true)
 	}
+	err = exec.Command("sudo", "cp", RULES_FILE, RULES_PATH).Run()
+	if err != nil {
+		errorln("Cannot continue without udev rules", false)
+		errorln(err, true)
+	}
+	_ = exec.Command("sudo", "udevadm", "control", "--reload-rules").Run()
+	_ = exec.Command("sudo", "udevadm", "trigger").Run()
 }
 
 func getDevices() map[string]string {
