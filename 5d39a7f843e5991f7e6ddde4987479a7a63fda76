@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "44153c6d_09ce04a6",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-16T16:07:13Z",
+      "side": 1,
+      "message": "needs to cleanup local file if we stat local file in checkUdevRules",
+      "range": {
+        "startLine": 99,
+        "startChar": 1,
+        "endLine": 102,
+        "endChar": 3
+      },
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "73f13c06_bb246da2",
         "filename": "flasher.go",
         "patchSetId": 1
@@ -30,6 +53,24 @@
       "writtenOn": "2020-10-16T15:44:28Z",
       "side": 1,
       "message": "here I checked for RULES_FILE, which means it checked in the current dir",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138f7d4d_ddb4490a",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-16T16:07:13Z",
+      "side": 1,
+      "message": "this is only ok if cleanup cleans up local rules files too",
+      "parentUuid": "711d110b_11a1fd4e",
       "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
