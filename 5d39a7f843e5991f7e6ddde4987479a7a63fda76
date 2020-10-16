@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73f13c06_bb246da2",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "This is ok. Maybe move it below the print about the version.",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "711d110b_11a1fd4e",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "here I checked for RULES_FILE, which means it checked in the current dir",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e7e79a_41c0cf4e",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "if that file didn\u0027t exist in current dir, which it wouldn\u0027t for a fresh on live-usb use case.",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "288bd821_6fb061fd",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "write the rules to this local file",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37ca8c90_5a0b1d30",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "copy to the system udev folder",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bf9541f_dc51e1fe",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-16T15:44:28Z",
+      "side": 1,
+      "message": "and then run this.",
+      "revId": "5d39a7f843e5991f7e6ddde4987479a7a63fda76",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
