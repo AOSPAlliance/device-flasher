@@ -22,6 +22,47 @@
       "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb6f7811_380b095b",
+        "filename": "flasher.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-17T02:04:59Z",
+      "side": 1,
+      "message": "I don\u0027t mind either way, but moving it was fine too. It can be the first thing done, that\u0027s ok.",
+      "parentUuid": "5e8e699a_ae7653e0",
+      "range": {
+        "startLine": 120,
+        "startChar": 1,
+        "endLine": 123,
+        "endChar": 2
+      },
+      "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb65a1c_00251d94",
+        "filename": "flasher.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-17T02:04:59Z",
+      "side": 1,
+      "message": "Does this error if the file already exists, or simply overwrite it?",
+      "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
