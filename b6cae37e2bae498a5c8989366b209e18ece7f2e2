@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da300818_35f373c3",
+        "filename": "internal/devicediscovery/device.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-17T01:16:10Z",
+      "side": 1,
+      "message": "is this used to tell a device to reboot to bootloader if in adb state?",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 42,
+        "endChar": 23
+      },
+      "revId": "b6cae37e2bae498a5c8989366b209e18ece7f2e2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35776189_6ed257f4",
+        "filename": "internal/devicediscovery/discovery.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-17T01:16:10Z",
+      "side": 1,
+      "message": "formatting nitpick :P",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 27
+      },
+      "revId": "b6cae37e2bae498a5c8989366b209e18ece7f2e2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58bdff4e_e8874629",
+        "filename": "internal/devicediscovery/discovery.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-17T01:16:10Z",
+      "side": 1,
+      "message": "same potential efficiency nitpick as before, could be done during getDevices()?",
+      "range": {
+        "startLine": 49,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 2
+      },
+      "revId": "b6cae37e2bae498a5c8989366b209e18ece7f2e2",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
