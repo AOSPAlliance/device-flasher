@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57879376_a5db0b74",
+        "filename": "internal/devicediscovery/device.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-17T06:14:37Z",
+      "side": 1,
+      "message": "jasmine",
+      "revId": "e937aded4c8240c82cf1e2866bc529fb2da30955",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
