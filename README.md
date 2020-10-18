@@ -12,15 +12,15 @@ A cross platform tool that simplifies the process of flashing factory images ont
 * Open a terminal and run device flasher for your platform:
   * Windows: 
     ```
-    .\device-flasher.exe -path <factory image zip>
+    .\device-flasher.exe -image <factory image zip>
     ```
   * Linux: 
     ```
-    sudo ./device-flasher.linux -path <factory image zip>
+    ./device-flasher.linux -image <factory image zip>
     ```
   * OSX:
     ```
-    ./device-flasher.darwin -path <factory image zip>
+    ./device-flasher.darwin -image <factory image zip>
     ```
 
 ## License

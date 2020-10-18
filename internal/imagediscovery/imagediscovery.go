@@ -2,6 +2,7 @@ package imagediscovery
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -25,6 +26,9 @@ func Discover(discoverPath string) (map[string]string, error) {
 			codename, err := getCodename(info)
 			if err != nil {
 				return nil
+			}
+			if existing, ok := factoryImages[codename]; ok {
+				return fmt.Errorf("duplicate factory image (%v) for codename=%v found: %v", existing, codename, path)
 			}
 			factoryImages[codename] = path
 			return nil
