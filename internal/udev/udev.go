@@ -59,10 +59,7 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="{{.AttrIDVendor}}", GROUP="sudo"
 func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 	_, err := os.Stat(RulesPath + RulesFile)
 	if os.IsNotExist(err) {
-		// check for root as it's required
-		if os.Getuid() != 0 {
-			return fmt.Errorf("must run as root to setup udev")
-		}
+		logger.Info("setting up udev - this will require elevated privileges and may prompt for password")
 
 		// setup udev rules path
 		logger.Infof("udev: creating %v", RulesPath)

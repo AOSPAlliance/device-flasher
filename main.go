@@ -29,14 +29,16 @@ import (
 var (
 	path               string
 	debug              bool
+	parallel           bool
 	hostOS             = runtime.GOOS
 	adbTool            *adb.Tool
 	cleanupDirectories []string
 )
 
 func parseFlags() {
-	flag.StringVar(&path, "path", "", "factory image zip file or directory")
+	flag.StringVar(&path, "image", "", "factory image zip file")
 	flag.BoolVar(&debug, "debug", false, "debug logging")
+	flag.BoolVar(&parallel, "parallel", false, "enables flashing of multiple devices at once")
 	flag.Parse()
 }
 
@@ -51,12 +53,7 @@ func main() {
 	}
 
 	if path == "" {
-		logger.Info("no -path was specified, using current working directory")
-		dir, err := os.Getwd()
-		if err != nil {
-			logger.Fatalf("unable to get current working directory: %v", err)
-		}
-		path = dir
+		logger.Fatal("-image flag must be specified.")
 	}
 
 	// check path exists
@@ -65,11 +62,16 @@ func main() {
 		logger.Fatalf("unable to find provided path %v: %v", path, err)
 	}
 
+	// non parallel only supports passing a file to be more explicit
+	if !parallel && pathInfo.IsDir() {
+		logger.Fatal("-image must be a file (not a directory)")
+	}
+
 	// image discovery
 	logger.Debug("running image discovery")
 	images, err := imagediscovery.Discover(path)
 	if err != nil {
-		logger.Fatalf("image discovery failed for path %v: %v", path, err)
+		logger.Fatalf("image discovery failed for %v: %v", path, err)
 	}
 
 	// setup udev if running linux
@@ -137,6 +139,9 @@ func main() {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
 	logger.Info("")
+	if !parallel && len(devicesMap) > 1 {
+		logger.Fatalf("discovered multiple devices and --parallel flag is not enabled")
+	}
 
 	// factory image extraction
 	flashableDevices := []*device.Device{}
@@ -208,7 +213,7 @@ func main() {
 func getToolsVersion(pathInfo os.FileInfo) platformtools.SupportedVersion {
 	// TODO: jasmine specific hack
 	toolsVersion := platformtools.Version_30_0_4
-	if strings.Contains(pathInfo.Name(), "jasmine") {
+	if !pathInfo.IsDir() && strings.Contains(pathInfo.Name(), "jasmine") {
 		toolsVersion = platformtools.Version_29_0_6
 	}
 	return toolsVersion
