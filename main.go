@@ -138,33 +138,45 @@ func main() {
 	for _, device := range devicesMap {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
-	logger.Info("")
 	if !parallel && len(devicesMap) > 1 {
 		logger.Fatalf("discovered multiple devices and --parallel flag is not enabled")
 	}
+	logger.Info("")
 
 	// factory image extraction
 	flashableDevices := []*device.Device{}
 	factoryImages := map[string]*factoryimage.FactoryImage{}
 	for _, d := range devicesMap {
+		deviceLogger := logger.WithFields(logrus.Fields{"id": d.ID, "codename": d.Codename})
 		if _, ok := images[string(d.Codename)]; !ok {
-			logger.Warnf("no image discovered for device id=%v codename=%v", d.ID, d.Codename)
+			deviceLogger.Warnf("no image discovered for device")
 			continue
 		}
-		logger.Debug("creating temporary directory for extracting factory image")
-		tmpFactoryDir, err := tempExtractDir("factory")
-		if err != nil {
-			logger.Fatalf("failed to create temp dir for factory image: %v", err)
+
+		var factoryImage *factoryimage.FactoryImage
+		if fi, ok := factoryImages[string(d.Codename)]; ok {
+			deviceLogger.Debug("re-using existing factory image")
+			factoryImage = fi
+		} else {
+			deviceLogger.Debug("creating temporary directory for extracting factory image for device")
+			tmpFactoryDir, err := tempExtractDir("factory")
+			if err != nil {
+				logger.Fatalf("failed to create temp dir for factory image: %v", err)
+			}
+			factoryImage = factoryimage.New(&factoryimage.Config{
+				HostOS:           hostOS,
+				ImagePath:        images[string(d.Codename)],
+				WorkingDirectory: tmpFactoryDir,
+				Logger:           logger,
+			})
 		}
-		factoryImages[string(d.Codename)], err = factoryimage.New(&factoryimage.Config{
-			HostOS:           hostOS,
-			ImagePath:        images[string(d.Codename)],
-			WorkingDirectory: tmpFactoryDir,
-			Logger:           logger,
-		})
+
+		err = factoryImage.Extract()
 		if err != nil {
 			logger.Fatalf("failed to extract factory image: %v", err)
 		}
+
+		factoryImages[string(d.Codename)] = factoryImage
 		flashableDevices = append(flashableDevices, d)
 	}
 	if len(flashableDevices) <= 0 {

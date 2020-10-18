@@ -106,7 +106,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Info("finished running flash all script")
 
 	logger.Info("re-locking bootloader")
-	logger.Info("-> Please use the volume and power keys on the device to unlock the bootloader")
+	logger.Info("-> Please use the volume and power keys on the device to lock the bootloader")
 	if d.CustomHooks != nil && d.CustomHooks.FlashingPreLock != nil {
 		err := d.CustomHooks.FlashingPreLock(d, logger.Logger)
 		if err != nil {

@@ -33,20 +33,16 @@ type FactoryImage struct {
 	ImagePath          string
 	workingDirectory   string
 	logger             *logrus.Logger
+	IsExtracted        bool
 }
 
-func New(config *Config) (*FactoryImage, error) {
-	factoryImage := &FactoryImage{
+func New(config *Config) *FactoryImage {
+	return &FactoryImage{
 		hostOS:           config.HostOS,
 		workingDirectory: config.WorkingDirectory,
 		ImagePath:        config.ImagePath,
 		logger:           config.Logger,
 	}
-	err := factoryImage.setup()
-	if err != nil {
-		return nil, err
-	}
-	return factoryImage, nil
 }
 
 func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platformtools.PlatformToolsPath) error {
@@ -54,14 +50,8 @@ func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platfor
 	if f.hostOS == "windows" {
 		pathEnvironmentVariable = "Path"
 	}
-
 	path := os.Getenv(pathEnvironmentVariable)
-	newPath := string(platformToolsPath) + string(os.PathListSeparator) + path
-	f.logger.WithField("newPath", newPath).Debug("adding platform tools to PATH")
-	err := os.Setenv(pathEnvironmentVariable, newPath)
-	if err != nil {
-		return err
-	}
+	pathWithPlatformTools := string(platformToolsPath) + string(os.PathListSeparator) + path
 
 	flashAll := fmt.Sprintf(".%v%v", string(os.PathSeparator), f.flashAllScript)
 	f.logger.WithFields(logrus.Fields{
@@ -70,6 +60,7 @@ func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platfor
 	flashCmd := exec.Command(flashAll)
 	flashCmd.Dir = f.extractedDirectory
 	flashCmd.Env = os.Environ()
+	flashCmd.Env = append(flashCmd.Env, fmt.Sprintf("%v=%v", pathEnvironmentVariable, pathWithPlatformTools))
 	flashCmd.Env = append(flashCmd.Env, fmt.Sprintf("ANDROID_SERIAL=%v", device.ID))
 
 	cmdStdoutReader, err := flashCmd.StdoutPipe()
@@ -126,7 +117,12 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	return nil
 }
 
-func (f *FactoryImage) setup() error {
+func (f *FactoryImage) Extract() error {
+	if f.IsExtracted {
+		f.logger.Debugf("already extracted %v to %v", f.ImagePath, f.workingDirectory)
+		return nil
+	}
+
 	err := f.extract()
 	if err != nil {
 		return err
@@ -137,6 +133,7 @@ func (f *FactoryImage) setup() error {
 		return err
 	}
 
+	f.IsExtracted = true
 	return nil
 }
 
