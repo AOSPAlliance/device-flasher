@@ -10,7 +10,7 @@ import (
 
 type FactoryImageFlasher interface {
 	Validate(codename device.Codename) error
-	FlashAll(path platformtools.PlatformToolsPath) error
+	FlashAll(device *device.Device, path platformtools.PlatformToolsPath) error
 }
 
 type PlatformToolsFlasher interface {
@@ -99,7 +99,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Infof("bootloader is unlocked")
 
 	logger.Info("running flash all script")
-	err = f.factoryImage.FlashAll(f.platformTools.Path())
+	err = f.factoryImage.FlashAll(d, f.platformTools.Path())
 	if err != nil {
 		return err
 	}

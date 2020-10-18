@@ -1,6 +1,7 @@
 package device
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
 )
 
@@ -33,4 +34,8 @@ func New(deviceId, codename, discoveryTool string, logger *logrus.Logger) *Devic
 		}
 	}
 	return d
+}
+
+func (d *Device) String() string {
+	return fmt.Sprintf("id=%v codename=%v", d.ID, d.Codename)
 }

@@ -1,6 +1,7 @@
 package factoryimage
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"github.com/mholt/archiver/v3"
@@ -20,7 +21,6 @@ var (
 
 type Config struct {
 	HostOS           string
-	Name             string
 	ImagePath        string
 	WorkingDirectory string
 	Logger           *logrus.Logger
@@ -29,9 +29,8 @@ type Config struct {
 type FactoryImage struct {
 	hostOS             string
 	extractedDirectory string
-	name               string
 	flashAllScript     string
-	imagePath          string
+	ImagePath          string
 	workingDirectory   string
 	logger             *logrus.Logger
 }
@@ -39,9 +38,8 @@ type FactoryImage struct {
 func New(config *Config) (*FactoryImage, error) {
 	factoryImage := &FactoryImage{
 		hostOS:           config.HostOS,
-		name:             config.Name,
 		workingDirectory: config.WorkingDirectory,
-		imagePath:        config.ImagePath,
+		ImagePath:        config.ImagePath,
 		logger:           config.Logger,
 	}
 	err := factoryImage.setup()
@@ -51,7 +49,7 @@ func New(config *Config) (*FactoryImage, error) {
 	return factoryImage, nil
 }
 
-func (f *FactoryImage) FlashAll(platformToolsPath platformtools.PlatformToolsPath) error {
+func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platformtools.PlatformToolsPath) error {
 	pathEnvironmentVariable := "PATH"
 	if f.hostOS == "windows" {
 		pathEnvironmentVariable = "Path"
@@ -59,24 +57,53 @@ func (f *FactoryImage) FlashAll(platformToolsPath platformtools.PlatformToolsPat
 
 	path := os.Getenv(pathEnvironmentVariable)
 	newPath := string(platformToolsPath) + string(os.PathListSeparator) + path
-	f.logger.WithField("newPath", newPath).Info("adding platform tools to PATH")
+	f.logger.WithField("newPath", newPath).Debug("adding platform tools to PATH")
 	err := os.Setenv(pathEnvironmentVariable, newPath)
 	if err != nil {
 		return err
 	}
 
-	flashAll := fmt.Sprintf("./%v", f.flashAllScript)
+	flashAll := fmt.Sprintf(".%v%v", string(os.PathSeparator), f.flashAllScript)
 	f.logger.WithFields(logrus.Fields{
 		"flashAll": flashAll,
 	}).Debug("running flash all script on device")
 	flashCmd := exec.Command(flashAll)
 	flashCmd.Dir = f.extractedDirectory
-	flashCmd.Stdout = os.Stdout
-	flashCmd.Stderr = os.Stdout
-	err = flashCmd.Run()
+	flashCmd.Env = os.Environ()
+	flashCmd.Env = append(flashCmd.Env, fmt.Sprintf("ANDROID_SERIAL=%v", device.ID))
+
+	cmdStdoutReader, err := flashCmd.StdoutPipe()
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrorFailedToFlash, err)
 	}
+	cmdStderrReader, err := flashCmd.StderrPipe()
+	if err != nil {
+		return fmt.Errorf("%w: %v", ErrorFailedToFlash, err)
+	}
+
+	scannerStdout := bufio.NewScanner(cmdStdoutReader)
+	go func() {
+		for scannerStdout.Scan() {
+			f.logger.Infof("%v | %s", device.String(), scannerStdout.Text())
+		}
+	}()
+	scannerStderr := bufio.NewScanner(cmdStderrReader)
+	go func() {
+		for scannerStderr.Scan() {
+			f.logger.Infof("%v | %s", device.String(), scannerStderr.Text())
+		}
+	}()
+
+	err = flashCmd.Start()
+	if err != nil {
+		return fmt.Errorf("%w: %v", ErrorFailedToFlash, err)
+	}
+
+	err = flashCmd.Wait()
+	if err != nil {
+		return fmt.Errorf("%w: %v", ErrorFailedToFlash, err)
+	}
+
 	return nil
 }
 
@@ -84,16 +111,16 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	f.logger.WithFields(logrus.Fields{
 		"deviceCodename": deviceCodename,
 	}).Info("running factory image validation")
-	if _, err := os.Stat(f.imagePath); os.IsNotExist(err) {
+	if _, err := os.Stat(f.ImagePath); os.IsNotExist(err) {
 		return fmt.Errorf("%w: %v", ErrorValidation, err)
 	}
-	if !strings.Contains(f.imagePath, strings.ToLower(string(deviceCodename))) {
+	if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
 		return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
 	}
-	if !strings.HasSuffix(f.imagePath, ".zip") {
+	if !strings.HasSuffix(f.ImagePath, ".zip") {
 		return fmt.Errorf("%w: image filename should end in .zip", ErrorValidation)
 	}
-	if !strings.Contains(f.imagePath, "factory") {
+	if !strings.Contains(f.ImagePath, "factory") {
 		return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
 	}
 	return nil
@@ -115,10 +142,9 @@ func (f *FactoryImage) setup() error {
 
 func (f *FactoryImage) extract() error {
 	f.logger.WithFields(logrus.Fields{
-		"name":      f.name,
-		"imagePath": f.imagePath,
+		"ImagePath": f.ImagePath,
 	}).Info("extracting factory image")
-	err := archiver.Unarchive(f.imagePath, f.workingDirectory)
+	err := archiver.Unarchive(f.ImagePath, f.workingDirectory)
 	if err != nil {
 		return err
 	}

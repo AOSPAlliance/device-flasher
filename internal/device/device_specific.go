@@ -4,9 +4,14 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+const (
+	DeviceJasmine Codename = "jasmine"
+	DeviceWalleye Codename = "walleye"
+)
+
 var DeviceHooks = map[Codename]*CustomHooks{
-	Codename("jasmine"): jasmineHooks,
-	Codename("walleye"): walleyeHooks,
+	DeviceJasmine: jasmineHooks,
+	DeviceWalleye: walleyeHooks,
 }
 
 var (

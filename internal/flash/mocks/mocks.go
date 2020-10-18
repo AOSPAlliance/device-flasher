@@ -36,17 +36,17 @@ func (m *MockFactoryImageFlasher) EXPECT() *MockFactoryImageFlasherMockRecorder 
 }
 
 // FlashAll mocks base method
-func (m *MockFactoryImageFlasher) FlashAll(arg0 platformtools.PlatformToolsPath) error {
+func (m *MockFactoryImageFlasher) FlashAll(arg0 *device.Device, arg1 platformtools.PlatformToolsPath) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FlashAll", arg0)
+	ret := m.ctrl.Call(m, "FlashAll", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // FlashAll indicates an expected call of FlashAll
-func (mr *MockFactoryImageFlasherMockRecorder) FlashAll(arg0 interface{}) *gomock.Call {
+func (mr *MockFactoryImageFlasherMockRecorder) FlashAll(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FlashAll", reflect.TypeOf((*MockFactoryImageFlasher)(nil).FlashAll), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FlashAll", reflect.TypeOf((*MockFactoryImageFlasher)(nil).FlashAll), arg0, arg1)
 }
 
 // Validate mocks base method
