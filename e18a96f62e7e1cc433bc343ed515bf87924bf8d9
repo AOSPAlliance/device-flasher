@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39b26c89_ae871c1e",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-19T14:55:29Z",
+      "side": 1,
+      "message": "is this whitespace? not sure what pink means on gerrit",
+      "range": {
+        "startLine": 13,
+        "startChar": 12,
+        "endLine": 13,
+        "endChar": 13
+      },
+      "revId": "e18a96f62e7e1cc433bc343ed515bf87924bf8d9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eb4a9c9_3814297d",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-19T14:55:29Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 11
+      },
+      "revId": "e18a96f62e7e1cc433bc343ed515bf87924bf8d9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "545a7177_1a048b2d",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-19T14:55:29Z",
+      "side": 1,
+      "message": "not sure what was decided but are we removing this?",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 9
+      },
+      "revId": "e18a96f62e7e1cc433bc343ed515bf87924bf8d9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e1f6ae4_3189765f",
+        "filename": "main.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-19T14:55:29Z",
+      "side": 1,
+      "message": "is the idea to move it to device_specific.go?",
+      "range": {
+        "startLine": 209,
+        "startChar": 10,
+        "endLine": 209,
+        "endChar": 31
+      },
+      "revId": "e18a96f62e7e1cc433bc343ed515bf87924bf8d9",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
