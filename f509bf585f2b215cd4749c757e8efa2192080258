@@ -63,6 +63,24 @@
       "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bb0a733_c8b6377d",
+        "filename": "flasher.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-19T14:59:41Z",
+      "side": 1,
+      "message": "supposed to overwrite https://groups.google.com/g/golang-nuts/c/3poQukyO2QY",
+      "parentUuid": "3eb65a1c_00251d94",
+      "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
