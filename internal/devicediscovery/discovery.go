@@ -66,6 +66,9 @@ func (d *Discovery) getDevices(tool DeviceDiscoverer) (map[string]*device.Device
 		return nil, fmt.Errorf("%v %w: %v", toolName, ErrGetDevices, err)
 	}
 	for _, deviceId := range deviceIds {
+		if len(deviceId) == 0 {
+			continue
+		}
 		d.logger.Debugf("%v getting code name for device %v", toolName, deviceId)
 		deviceCodename, err := tool.GetDeviceCodename(deviceId)
 		if err != nil {
