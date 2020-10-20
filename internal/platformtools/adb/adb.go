@@ -36,10 +36,11 @@ func (t *Tool) GetDeviceIds() ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	devices := strings.Split(string(resp), "\n")
-	devices = devices[1 : len(devices)-2]
-	for i, device := range devices {
-		devices[i] = strings.Split(device, "\t")[0]
+	var devices []string
+	for _, device := range strings.Split(string(resp), "\n")[1:] {
+		if device != "" && device != "\r" {
+			devices = append(devices, strings.Split(device, "\t")[0])
+		}
 	}
 	return devices, nil
 }
