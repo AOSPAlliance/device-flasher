@@ -138,9 +138,6 @@ func main() {
 	for _, device := range devicesMap {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
-	if !parallel && len(devicesMap) > 1 {
-		logger.Fatalf("discovered multiple devices and --parallel flag is not enabled")
-	}
 	logger.Info("")
 
 	// factory image extraction
@@ -182,6 +179,10 @@ func main() {
 	if len(flashableDevices) <= 0 {
 		logger.Fatal("there are no flashable devices")
 	}
+	if !parallel && len(flashableDevices) > 1 {
+		logger.Fatalf("discovered multiple devices and --parallel flag is not enabled")
+	}
+
 
 	// flash devices
 	logger.Info("")
