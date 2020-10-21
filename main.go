@@ -83,6 +83,7 @@ func main() {
 		if err != nil {
 			logger.Fatalf("failed to setup udev: %v", err)
 		}
+		cleanupDirectories = append(cleanupDirectories, udev.RulesPath+udev.RulesFile)
 	}
 
 	// platform tools setup
