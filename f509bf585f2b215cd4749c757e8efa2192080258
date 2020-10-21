@@ -81,6 +81,24 @@
       "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52401d94_89e14105",
+        "filename": "flasher.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-21T19:56:39Z",
+      "side": 1,
+      "message": "Btw, the reason I had the check here was to not prompt the user for sudo every single time. But that just leads to issues it seems, so this is fine.",
+      "parentUuid": "3bb0a733_c8b6377d",
+      "revId": "f509bf585f2b215cd4749c757e8efa2192080258",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
