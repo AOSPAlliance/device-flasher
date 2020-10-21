@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c64fbd98_ecd5a131",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-21T20:20:21Z",
+      "side": 0,
+      "message": "The one thing removing this will change is now it always needs sudo, but then this could exist but be out of date or something and if we keep this now it\u0027d only cause issues in the future I guess.",
+      "revId": "52306efc51ea8be6d87c7a559a87dcfc6bd0ba9d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
