@@ -19,6 +19,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"os/signal"
 	"path/filepath"
 	"runtime"
@@ -270,6 +271,12 @@ func cleanup() {
 		err := os.RemoveAll(dir)
 		if err != nil {
 			fmt.Printf("cleanup error removing dir %v: %v\n", dir, err)
+		}
+	}
+	if hostOS == "linux" {
+		_, err := os.Stat(udev.RulesPath + udev.RulesFile)
+		if !os.IsNotExist(err) {
+			_ = exec.Command("sudo", "rm", udev.RulesPath + udev.RulesFile).Run()
 		}
 	}
 }
