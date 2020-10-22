@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	"gitlab.com/calyxos/device-flasher/internal/device"
 	"gitlab.com/calyxos/device-flasher/internal/devicediscovery"
@@ -48,6 +49,8 @@ func main() {
 	defer cleanup()
 
 	logger := logrus.New()
+	logger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
+	logger.SetOutput(colorable.NewColorableStdout())
 	if debug {
 		logger.SetLevel(logrus.DebugLevel)
 	}
