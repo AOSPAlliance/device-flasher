@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce452b1e_5d7c1713",
+        "filename": "init_windows.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-22T06:41:00Z",
+      "side": 0,
+      "message": "go-colorable library appears to take care of this.",
+      "revId": "d64505aee301d587981232d156deaf1a3f4a3c61",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
