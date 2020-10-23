@@ -37,5 +37,5 @@ func New(deviceId, codename, discoveryTool string, logger *logrus.Logger) *Devic
 }
 
 func (d *Device) String() string {
-	return fmt.Sprintf("id=%v codename=%v", d.ID, d.Codename)
+	return fmt.Sprintf("id=%v", d.ID)
 }
