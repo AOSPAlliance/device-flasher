@@ -34,6 +34,24 @@
       "revId": "52306efc51ea8be6d87c7a559a87dcfc6bd0ba9d",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2445be4c_65f268a2",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-23T09:52:39Z",
+      "side": 0,
+      "message": "We remove the rules during cleanup, so in a way it\u0027d always ask for sudo.\n\nThe more of I think of this, I think it\u0027s fine to just keep this simple. Most would run this once (or maybe twice if they had an error the first time), and then just rely on OTA updates.",
+      "parentUuid": "f5917c0e_3f1f5ba7",
+      "revId": "52306efc51ea8be6d87c7a559a87dcfc6bd0ba9d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
