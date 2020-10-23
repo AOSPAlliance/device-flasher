@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
+	"gitlab.com/calyxos/device-flasher/internal/color"
 	"gitlab.com/calyxos/device-flasher/internal/device"
 	"gitlab.com/calyxos/device-flasher/internal/devicediscovery"
 	"gitlab.com/calyxos/device-flasher/internal/factoryimage"
@@ -49,7 +51,11 @@ func main() {
 	defer cleanup()
 
 	logger := logrus.New()
-	logger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
+	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
+	formatter.SetColorScheme(&prefixed.ColorScheme{
+		PrefixStyle: "white",
+	})
+	logger.SetFormatter(formatter)
 	logger.SetOutput(colorable.NewColorableStdout())
 	if debug {
 		logger.SetLevel(logrus.DebugLevel)
@@ -62,7 +68,7 @@ func main() {
 	// check path exists
 	pathInfo, err := os.Stat(path)
 	if err != nil {
-		logger.Fatalf("unable to find provided path %v: %v", path, err)
+		logger.Fatalf(color.Red("unable to find provided path %v: %v"), path, err)
 	}
 
 	// non parallel only supports passing a file to be more explicit
@@ -74,14 +80,14 @@ func main() {
 	logger.Debug("running image discovery")
 	images, err := imagediscovery.Discover(path)
 	if err != nil {
-		logger.Fatalf("image discovery failed for %v: %v", path, err)
+		logger.Fatalf(color.Red("image discovery failed for %v: %v"), path, err)
 	}
 
 	// setup udev if running linux
 	if hostOS == "linux" {
 		err := udev.Setup(logger, udev.DefaultUDevRules)
 		if err != nil {
-			logger.Fatalf("failed to setup udev: %v", err)
+			logger.Fatalf(color.Red("failed to setup udev: %v"), err)
 		}
 	}
 
@@ -90,7 +96,7 @@ func main() {
 	toolsVersion := getToolsVersion(pathInfo)
 	toolZipCacheDir, tmpToolExtractDir, err := platformToolsDirs(string(toolsVersion))
 	if err != nil {
-		logger.Fatalf("failed to setup platformtools temp directories: %v", err)
+		logger.Fatalf(color.Red("failed to setup platformtools temp directories: %v"), err)
 	}
 	platformTools, err := platformtools.New(&platformtools.Config{
 		CacheDir:             toolZipCacheDir,
@@ -101,14 +107,14 @@ func main() {
 		Logger:               logger,
 	})
 	if err != nil {
-		logger.Fatalf("failed to setup platformtools: %v", err)
+		logger.Fatalf(color.Red("failed to setup platformtools: %v"), err)
 	}
 
 	// adb setup
 	logger.Debug("setting up adb")
 	adbTool, err = adb.New(platformTools.Path(), hostOS)
 	if err != nil {
-		logger.Fatalf("failed to setup adb: %v", err)
+		logger.Fatalf(color.Red("failed to setup adb: %v"), err)
 	}
 	err = adbTool.KillServer()
 	if err != nil {
@@ -116,32 +122,32 @@ func main() {
 	}
 	err = adbTool.StartServer()
 	if err != nil {
-		logger.Fatalf("failed to start adb server: %v", err)
+		logger.Fatalf(color.Red("failed to start adb server: %v"), err)
 	}
 
 	// fastboot setup
 	logger.Debug("setting up fastboot")
 	fastbootTool, err := fastboot.New(platformTools.Path(), hostOS)
 	if err != nil {
-		logger.Fatalf("failed to setup fastboot: %v", err)
+		logger.Fatalf(color.Red("failed to setup fastboot: %v"), err)
 	}
 
 	// device discovery
-	logger.Info("1. Connect to a wifi network and ensure that no SIM cards are installed")
-	logger.Info("2. Enable Developer Options on device (Settings -> About Phone -> tap \"Build number\" 7 times)")
-	logger.Info("3. Enable USB debugging on device (Settings -> System -> Advanced -> Developer Options) and allow the computer to debug (hit \"OK\" on the popup when USB is connected)")
-	logger.Info("4. Enable OEM Unlocking (in the same Developer Options menu)")
-	logger.Info("Press ENTER to continue")
+	logger.Info(color.Yellow("1. Connect to a wifi network and ensure that no SIM cards are installed"))
+	logger.Info(color.Yellow("2. Enable Developer Options on device (Settings -> About Phone -> tap \"Build number\" 7 times)"))
+	logger.Info(color.Yellow("3. Enable USB debugging on device (Settings -> System -> Advanced -> Developer Options) and allow the computer to debug (hit \"OK\" on the popup when USB is connected)"))
+	logger.Info(color.Yellow("4. Enable OEM Unlocking (in the same Developer Options menu)"))
+	logger.Info(color.Yellow("Press ENTER to continue"))
 	_, _ = fmt.Scanln()
 	devicesMap, err := devicediscovery.New(adbTool, fastbootTool, logger).DiscoverDevices()
 	if err != nil {
-		logger.Fatalf("failed to run device discovery: %v", err)
+		logger.Fatalf(color.Red("failed to run device discovery: %v"), err)
 	}
 	logger.Info("Discovered the following device(s):")
 	for _, device := range devicesMap {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
-	logger.Info("")
+	fmt.Println("")
 
 	// factory image extraction
 	flashableDevices := []*device.Device{}
@@ -161,7 +167,7 @@ func main() {
 			deviceLogger.Debug("creating temporary directory for extracting factory image for device")
 			tmpFactoryDir, err := tempExtractDir("factory")
 			if err != nil {
-				logger.Fatalf("failed to create temp dir for factory image: %v", err)
+				logger.Fatalf(color.Red("failed to create temp dir for factory image: %v"), err)
 			}
 			factoryImage = factoryimage.New(&factoryimage.Config{
 				HostOS:           hostOS,
@@ -173,7 +179,7 @@ func main() {
 
 		err = factoryImage.Extract()
 		if err != nil {
-			logger.Fatalf("failed to extract factory image: %v", err)
+			logger.Fatalf(color.Red("failed to extract factory image: %v"), err)
 		}
 
 		factoryImages[string(d.Codename)] = factoryImage
@@ -183,24 +189,23 @@ func main() {
 		logger.Fatal("there are no flashable devices")
 	}
 	if !parallel && len(flashableDevices) > 1 {
-		logger.Fatalf("discovered multiple devices and --parallel flag is not enabled")
+		logger.Fatalf(color.Red("discovered multiple devices and --parallel flag is not enabled"))
 	}
 
 	// flash devices
-	logger.Info("")
-	logger.Info("Flashing the following device(s):")
+	fmt.Println("")
+	logger.Info(color.Yellow("Flashing the following device(s):"))
 	for _, d := range flashableDevices {
-		logger.Infof("📲 id=%v codename=%v image=%v", d.ID, d.Codename, factoryImages[string(d.Codename)].ImagePath)
+		logger.Infof(color.Yellow("📲 id=%v codename=%v image=%v"), d.ID, d.Codename, factoryImages[string(d.Codename)].ImagePath)
 	}
-	logger.Info("Press ENTER to continue")
+	logger.Info(color.Yellow("Press ENTER to continue"))
 	_, _ = fmt.Scanln()
 	g, _ := errgroup.WithContext(context.Background())
 	for _, d := range flashableDevices {
 		currentDevice := d
 		g.Go(func() error {
 			deviceLogger := logger.WithFields(logrus.Fields{
-				"deviceId":       currentDevice.ID,
-				"deviceCodename": currentDevice.Codename,
+				"prefix": currentDevice.String(),
 			})
 			deviceLogger.Infof("starting to flash device")
 			err := flash.New(&flash.Config{
