@@ -16,6 +16,24 @@
       "revId": "52306efc51ea8be6d87c7a559a87dcfc6bd0ba9d",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5917c0e_3f1f5ba7",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-23T04:21:47Z",
+      "side": 0,
+      "message": "I kind of like it not requiring sudo privileges on every run. Some alternative ideas:\n* If we added a new manufacturer to udev in a future release, we could add checks to make sure udev config is up to date.\n* We could add a flag to force udev config to be updated even if the file already exists.",
+      "parentUuid": "c64fbd98_ecd5a131",
+      "revId": "52306efc51ea8be6d87c7a559a87dcfc6bd0ba9d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
