@@ -101,7 +101,7 @@ func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platfor
 func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	f.logger.WithFields(logrus.Fields{
 		"deviceCodename": deviceCodename,
-	}).Info("running factory image validation")
+	}).Debug("running factory image validation")
 	if _, err := os.Stat(f.ImagePath); os.IsNotExist(err) {
 		return fmt.Errorf("%w: %v", ErrorValidation, err)
 	}
@@ -138,9 +138,7 @@ func (f *FactoryImage) Extract() error {
 }
 
 func (f *FactoryImage) extract() error {
-	f.logger.WithFields(logrus.Fields{
-		"ImagePath": f.ImagePath,
-	}).Info("extracting factory image")
+	f.logger.Infof("Extracting factory image: %v", f.ImagePath)
 	err := archiver.Unarchive(f.ImagePath, f.workingDirectory)
 	if err != nil {
 		return err
