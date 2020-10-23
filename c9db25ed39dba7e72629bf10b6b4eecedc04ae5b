@@ -16,6 +16,23 @@
       "revId": "c9db25ed39dba7e72629bf10b6b4eecedc04ae5b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fd6c6fd_9ea547cd",
+        "filename": "internal/device/device_specific.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-23T13:17:50Z",
+      "side": 1,
+      "message": "Any reasons for the extra space?",
+      "revId": "c9db25ed39dba7e72629bf10b6b4eecedc04ae5b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
