@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/calyxos/device-flasher/internal/color"
 	"gitlab.com/calyxos/device-flasher/internal/device"
 	"gitlab.com/calyxos/device-flasher/internal/platformtools"
 	"gitlab.com/calyxos/device-flasher/internal/platformtools/fastboot"
@@ -82,8 +83,7 @@ func New(config *Config) *Flash {
 
 func (f *Flash) Flash(d *device.Device) error {
 	logger := f.logger.WithFields(logrus.Fields{
-		"deviceId":       d.ID,
-		"deviceCodename": d.Codename,
+		"prefix": d.String(),
 	})
 
 	logger.Info("validating factory image is for device")
@@ -107,14 +107,14 @@ func (f *Flash) Flash(d *device.Device) error {
 	}
 	if lockStatus != fastboot.Unlocked {
 		logger.Info("starting unlocking bootloader process")
-		logger.Info("5. Please use the volume and power keys on the device to unlock the bootloader")
+		logger.Info(color.Yellow("5. Please use the volume and power keys on the device to unlock the bootloader"))
 		if d.CustomHooks != nil && d.CustomHooks.FlashingPreUnlock != nil {
 			err := d.CustomHooks.FlashingPreUnlock(d, logger.Logger)
 			if err != nil {
 				logger.Warnf("pre unlock hook failed: %v", err)
 			}
 		}
-		err := f.retrySetBootloaderStatus(logger, d.ID, fastboot.Unlocked)
+		err := f.retrySetBootloaderStatus(d, fastboot.Unlocked)
 		if err != nil {
 			return err
 		}
@@ -129,14 +129,14 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Info("finished running flash all script")
 
 	logger.Info("starting re-locking bootloader process")
-	logger.Info("6. Please use the volume and power keys on the device to lock the bootloader")
+	logger.Info(color.Yellow("6. Please use the volume and power keys on the device to lock the bootloader"))
 	if d.CustomHooks != nil && d.CustomHooks.FlashingPreLock != nil {
 		err := d.CustomHooks.FlashingPreLock(d, logger.Logger)
 		if err != nil {
 			logger.Warnf("pre lock hook failed: %v", err)
 		}
 	}
-	err = f.retrySetBootloaderStatus(logger, d.ID, fastboot.Locked)
+	err = f.retrySetBootloaderStatus(d, fastboot.Locked)
 	if err != nil {
 		return err
 	}
@@ -146,12 +146,15 @@ func (f *Flash) Flash(d *device.Device) error {
 	if err != nil {
 		logger.Warnf("failed to reboot device: %v. may need to manually reboot", err)
 	}
-	logger.Info("7. Disable OEM unlocking from Developer Options after setting up your device")
+	logger.Info(color.Yellow("7. Disable OEM unlocking from Developer Options after setting up your device"))
 
 	return nil
 }
 
-func (f *Flash) retrySetBootloaderStatus(logger *logrus.Entry, deviceID string, wantedStatus fastboot.FastbootLockStatus) error {
+func (f *Flash) retrySetBootloaderStatus(d *device.Device, wantedStatus fastboot.FastbootLockStatus) error {
+	logger := f.logger.WithFields(logrus.Fields{
+		"prefix": d.String(),
+	})
 	actionInProgress := "unlocking"
 	actionComplete := "unlocked"
 	bootloaderAction := f.fastboot.UnlockBootloader
@@ -164,7 +167,7 @@ func (f *Flash) retrySetBootloaderStatus(logger *logrus.Entry, deviceID string, 
 	attempts := 0
 	for {
 		logger.Infof("%v bootloader", actionInProgress)
-		err := bootloaderAction(deviceID)
+		err := bootloaderAction(d.ID)
 		if err != nil {
 			logger.Debugf("error %v bootloader: %v", actionInProgress, err)
 			return err
@@ -172,7 +175,7 @@ func (f *Flash) retrySetBootloaderStatus(logger *logrus.Entry, deviceID string, 
 		logger.Debugf("waiting %v before checking bootloader status", f.lockUnlockValidationPause)
 		time.Sleep(f.lockUnlockValidationPause)
 		logger.Info("verifying bootloader status")
-		lockStatus, err := f.fastboot.GetBootloaderLockStatus(deviceID)
+		lockStatus, err := f.fastboot.GetBootloaderLockStatus(d.ID)
 		if err != nil {
 			logger.Debugf("error verifying bootloader status: %v", err)
 			return err
@@ -185,7 +188,7 @@ func (f *Flash) retrySetBootloaderStatus(logger *logrus.Entry, deviceID string, 
 			logger.Debugf("max %v retries hit", actionInProgress)
 			return fmt.Errorf("%w: %v", ErrMaxLockUnlockRetries, f.lockUnlockRetries)
 		}
-		f.logger.Infof("bootloader status is not %v yet. waiting %v before retrying", actionComplete, f.lockUnlockRetryInterval)
+		logger.Infof("bootloader status is not %v yet. waiting %v before retrying", actionComplete, f.lockUnlockRetryInterval)
 		time.Sleep(f.lockUnlockRetryInterval)
 		attempts++
 	}
