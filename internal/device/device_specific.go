@@ -1,7 +1,9 @@
 package device
 
 import (
+	"fmt"
 	"github.com/sirupsen/logrus"
+	"gitlab.com/calyxos/device-flasher/internal/color"
 )
 
 const (
@@ -39,8 +41,8 @@ func additionalLockStep(device *Device, logger *logrus.Logger) error {
 }
 
 func loggingSteps(step int, logger *logrus.Logger) error {
-	logger.Infof("  %va. Once device boots, disconnect its cable and power it off", step)
-	logger.Infof("  %vb. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.", step)
-	logger.Info("The installation will resume automatically")
+	logger.Info(color.Yellow(fmt.Sprintf("  %va. Once device boots, disconnect its cable and power it off", step)))
+	logger.Info(color.Yellow(fmt.Sprintf("  %vb. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.", step)))
+	logger.Info(color.Yellow("The installation will resume automatically"))
 	return nil
 }
