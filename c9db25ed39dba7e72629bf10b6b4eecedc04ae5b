@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2daeb15b_21f6e5ee",
+        "filename": "internal/color/color.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-23T10:11:28Z",
+      "side": 1,
+      "message": "Could add a Red for anything FATAL",
+      "revId": "c9db25ed39dba7e72629bf10b6b4eecedc04ae5b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
