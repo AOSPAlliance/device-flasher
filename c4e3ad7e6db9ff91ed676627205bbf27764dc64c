@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b62bca34_8a7dcf47",
+        "filename": "internal/device/device.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-23T13:19:23Z",
+      "side": 0,
+      "message": "Why remove the codename? I liked having that, lot clearer than just serial tbh.",
+      "revId": "c4e3ad7e6db9ff91ed676627205bbf27764dc64c",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
