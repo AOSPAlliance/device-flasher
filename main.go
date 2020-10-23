@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
+	"gitlab.com/calyxos/device-flasher/internal/color"
 	"gitlab.com/calyxos/device-flasher/internal/device"
 	"gitlab.com/calyxos/device-flasher/internal/devicediscovery"
 	"gitlab.com/calyxos/device-flasher/internal/factoryimage"
@@ -49,7 +51,11 @@ func main() {
 	defer cleanup()
 
 	logger := logrus.New()
-	logger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
+	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
+	formatter.SetColorScheme(&prefixed.ColorScheme{
+		PrefixStyle: "white",
+	})
+	logger.SetFormatter(formatter)
 	logger.SetOutput(colorable.NewColorableStdout())
 	if debug {
 		logger.SetLevel(logrus.DebugLevel)
@@ -127,11 +133,11 @@ func main() {
 	}
 
 	// device discovery
-	logger.Info("1. Connect to a wifi network and ensure that no SIM cards are installed")
-	logger.Info("2. Enable Developer Options on device (Settings -> About Phone -> tap \"Build number\" 7 times)")
-	logger.Info("3. Enable USB debugging on device (Settings -> System -> Advanced -> Developer Options) and allow the computer to debug (hit \"OK\" on the popup when USB is connected)")
-	logger.Info("4. Enable OEM Unlocking (in the same Developer Options menu)")
-	logger.Info("Press ENTER to continue")
+	logger.Info(color.Yellow("1. Connect to a wifi network and ensure that no SIM cards are installed"))
+	logger.Info(color.Yellow("2. Enable Developer Options on device (Settings -> About Phone -> tap \"Build number\" 7 times)"))
+	logger.Info(color.Yellow("3. Enable USB debugging on device (Settings -> System -> Advanced -> Developer Options) and allow the computer to debug (hit \"OK\" on the popup when USB is connected)"))
+	logger.Info(color.Yellow("4. Enable OEM Unlocking (in the same Developer Options menu)"))
+	logger.Info(color.Yellow("Press ENTER to continue"))
 	_, _ = fmt.Scanln()
 	devicesMap, err := devicediscovery.New(adbTool, fastbootTool, logger).DiscoverDevices()
 	if err != nil {
@@ -141,7 +147,7 @@ func main() {
 	for _, device := range devicesMap {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
-	logger.Info("")
+	fmt.Println("")
 
 	// factory image extraction
 	flashableDevices := []*device.Device{}
@@ -187,20 +193,19 @@ func main() {
 	}
 
 	// flash devices
-	logger.Info("")
-	logger.Info("Flashing the following device(s):")
+	fmt.Println("")
+	logger.Info(color.Yellow("Flashing the following device(s):"))
 	for _, d := range flashableDevices {
-		logger.Infof("📲 id=%v codename=%v image=%v", d.ID, d.Codename, factoryImages[string(d.Codename)].ImagePath)
+		logger.Infof(color.Yellow("📲 id=%v codename=%v image=%v"), d.ID, d.Codename, factoryImages[string(d.Codename)].ImagePath)
 	}
-	logger.Info("Press ENTER to continue")
+	logger.Info(color.Yellow("Press ENTER to continue"))
 	_, _ = fmt.Scanln()
 	g, _ := errgroup.WithContext(context.Background())
 	for _, d := range flashableDevices {
 		currentDevice := d
 		g.Go(func() error {
 			deviceLogger := logger.WithFields(logrus.Fields{
-				"deviceId":       currentDevice.ID,
-				"deviceCodename": currentDevice.Codename,
+				"prefix": currentDevice.String(),
 			})
 			deviceLogger.Infof("starting to flash device")
 			err := flash.New(&flash.Config{
