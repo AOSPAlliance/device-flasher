@@ -32,15 +32,15 @@ var (
 	}
 )
 
-func additionalUnlockStep(device *Device, logger *logrus.Logger) error {
+func additionalUnlockStep(device *Device, logger *logrus.Entry) error {
 	return loggingSteps(5, logger)
 }
 
-func additionalLockStep(device *Device, logger *logrus.Logger) error {
+func additionalLockStep(device *Device, logger *logrus.Entry) error {
 	return loggingSteps(6, logger)
 }
 
-func loggingSteps(step int, logger *logrus.Logger) error {
+func loggingSteps(step int, logger *logrus.Entry) error {
 	logger.Info(color.Yellow(fmt.Sprintf("  %va. Once device boots, disconnect its cable and power it off", step)))
 	logger.Info(color.Yellow(fmt.Sprintf("  %vb. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.", step)))
 	logger.Info(color.Yellow("The installation will resume automatically"))

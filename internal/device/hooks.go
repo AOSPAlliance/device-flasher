@@ -2,10 +2,10 @@ package device
 
 import "github.com/sirupsen/logrus"
 
-type Hook func(device *Device, logger *logrus.Logger) error
+type Hook func(device *Device, logger *logrus.Entry) error
 
 type CustomHooks struct {
-	DiscoveryPost     Hook
+	DiscoveryPost     func(device *Device, logger *logrus.Logger) error
 	FlashingPreUnlock Hook
 	FlashingPreLock   Hook
 }

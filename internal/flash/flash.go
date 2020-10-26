@@ -109,7 +109,7 @@ func (f *Flash) Flash(d *device.Device) error {
 		logger.Info("starting unlocking bootloader process")
 		logger.Info(color.Yellow("5. Please use the volume and power keys on the device to unlock the bootloader"))
 		if d.CustomHooks != nil && d.CustomHooks.FlashingPreUnlock != nil {
-			err := d.CustomHooks.FlashingPreUnlock(d, logger.Logger)
+			err := d.CustomHooks.FlashingPreUnlock(d, logger)
 			if err != nil {
 				logger.Warnf("pre unlock hook failed: %v", err)
 			}
@@ -131,7 +131,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Info("starting re-locking bootloader process")
 	logger.Info(color.Yellow("6. Please use the volume and power keys on the device to lock the bootloader"))
 	if d.CustomHooks != nil && d.CustomHooks.FlashingPreLock != nil {
-		err := d.CustomHooks.FlashingPreLock(d, logger.Logger)
+		err := d.CustomHooks.FlashingPreLock(d, logger)
 		if err != nil {
 			logger.Warnf("pre lock hook failed: %v", err)
 		}
