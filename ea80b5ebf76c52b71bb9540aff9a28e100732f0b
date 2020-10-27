@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "987a874a_85dcc7cd",
+        "filename": "internal/device/device_specific.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-27T18:47:27Z",
+      "side": 1,
+      "message": "Much better. Only thing still missing, super minor - is this doesn\u0027t include id and codename.",
+      "revId": "ea80b5ebf76c52b71bb9540aff9a28e100732f0b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}

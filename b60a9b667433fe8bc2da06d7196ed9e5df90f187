@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89f7230f_22943969",
+        "filename": "internal/color/color.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-27T18:47:27Z",
+      "side": 1,
+      "message": "Let\u0027s keep the blue and use it for stuff like version and flash complete.",
+      "revId": "b60a9b667433fe8bc2da06d7196ed9e5df90f187",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
