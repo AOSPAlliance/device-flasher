@@ -11,8 +11,6 @@
 .idea
 
 # Flasher input and outputs files
-platform-tools
-*factory*
 *.log
 *.zip
 
