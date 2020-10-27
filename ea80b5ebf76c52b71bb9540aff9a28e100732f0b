@@ -16,6 +16,24 @@
       "revId": "ea80b5ebf76c52b71bb9540aff9a28e100732f0b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d080805_f769d971",
+        "filename": "internal/device/device_specific.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-27T18:48:57Z",
+      "side": 1,
+      "message": "Nevermind, just need https://review.calyxos.org/c/AOSPAlliance/device-flasher/+/561 to be rebased.",
+      "parentUuid": "987a874a_85dcc7cd",
+      "revId": "ea80b5ebf76c52b71bb9540aff9a28e100732f0b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
