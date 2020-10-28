@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fbf5654_417187f2",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-28T03:48:32Z",
+      "side": 1,
+      "message": "Let\u0027s make os.TempDir()+RulesFile an export var and then main changes below can reference this as well.",
+      "revId": "d7e6ff9d7c0eb595c74edcb71f932cc1a07302d0",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e933e279_1ac3fb43",
+        "filename": "main.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-28T03:48:32Z",
+      "side": 1,
+      "message": "not part of your original change, but might be nice to log this error if rm fails",
+      "revId": "d7e6ff9d7c0eb595c74edcb71f932cc1a07302d0",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
