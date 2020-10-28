@@ -22,6 +22,30 @@
       "revId": "f54cd8657355d8955d4d337b8425c9008b792831",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1042e05_c43f0991",
+        "filename": "main.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2020-10-28T18:26:41Z",
+      "side": 1,
+      "message": "we should definitely log the error here. the flashing package returns errors and doesn\u0027t log them, expecting the downstream code to handle the errors like this.",
+      "parentUuid": "19c7720f_44bce981",
+      "range": {
+        "startLine": 240,
+        "startChar": 1,
+        "endLine": 244,
+        "endChar": 11
+      },
+      "revId": "f54cd8657355d8955d4d337b8425c9008b792831",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
