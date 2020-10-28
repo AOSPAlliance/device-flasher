@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c7720f_44bce981",
+        "filename": "main.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-28T16:59:54Z",
+      "side": 1,
+      "message": "I wonder if this is necessary. It currently only returns one error. if the device logger shows good visible errors already for individual devices I think it\u0027s fine to ignore the errors here?",
+      "range": {
+        "startLine": 240,
+        "startChar": 1,
+        "endLine": 244,
+        "endChar": 11
+      },
+      "revId": "f54cd8657355d8955d4d337b8425c9008b792831",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
