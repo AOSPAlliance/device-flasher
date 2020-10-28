@@ -3,7 +3,8 @@ package color
 import "fmt"
 
 var (
-	Red   = Color("\033[1;31m%s\033[0m")
+	Blue   = Color("\033[1;34m%s\033[0m")
+	Red    = Color("\033[1;31m%s\033[0m")
 	Yellow = Color("\033[1;33m%s\033[0m")
 )
 
