@@ -37,6 +37,7 @@ var (
 	hostOS       = runtime.GOOS
 	adbTool      *adb.Tool
 	cleanupPaths []string
+	version      string
 )
 
 func parseFlags() {
@@ -47,6 +48,7 @@ func parseFlags() {
 }
 
 func main() {
+	fmt.Println("Android Factory Image Flasher v" + version)
 	parseFlags()
 	cleanupOnCtrlC()
 	defer cleanup()
