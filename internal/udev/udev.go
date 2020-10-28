@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"text/template"
 )
@@ -13,6 +14,8 @@ const (
 	RulesPath = "/etc/udev/rules.d/"
 	RulesFile = "98-device-flasher.rules"
 )
+
+var TempRulesFile = os.TempDir() + RulesFile
 
 type UDevRule struct {
 	DeviceName   string
@@ -72,12 +75,12 @@ func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 		return err
 	}
 	logger.Debug("udev: rules=%v", udevRulesOutput)
-	err = ioutil.WriteFile(RulesFile, udevRulesOutput, 0644)
+	err = ioutil.WriteFile(TempRulesFile, udevRulesOutput, 0644)
 	if err != nil {
 		return err
 	}
 	logger.Infof("udev: writing rules to %v/%v", RulesPath, RulesFile)
-	cmd = exec.Command("sudo", "cp", RulesFile, RulesPath)
+	cmd = exec.Command("sudo", "cp", TempRulesFile, RulesPath)
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to copy %v to %v: err=%v output=%v", RulesFile, RulesPath, err, string(output))

@@ -31,12 +31,12 @@ import (
 )
 
 var (
-	path               string
-	debug              bool
-	parallel           bool
-	hostOS             = runtime.GOOS
-	adbTool            *adb.Tool
-	cleanupDirectories []string
+	path         string
+	debug        bool
+	parallel     bool
+	hostOS       = runtime.GOOS
+	adbTool      *adb.Tool
+	cleanupPaths []string
 )
 
 func parseFlags() {
@@ -90,6 +90,7 @@ func main() {
 		if err != nil {
 			logger.Fatalf(color.Red("failed to setup udev: %v"), err)
 		}
+		cleanupPaths = append(cleanupPaths, udev.TempRulesFile)
 	}
 
 	// platform tools setup
@@ -261,7 +262,7 @@ func tempExtractDir(usage string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	cleanupDirectories = append(cleanupDirectories, tmpToolExtractDir)
+	cleanupPaths = append(cleanupPaths, tmpToolExtractDir)
 	return tmpToolExtractDir, nil
 }
 
@@ -272,16 +273,19 @@ func cleanup() {
 			fmt.Printf("cleanup error killing adb server: %v\n", err)
 		}
 	}
-	for _, dir := range cleanupDirectories {
-		err := os.RemoveAll(dir)
+	for _, path := range cleanupPaths {
+		err := os.RemoveAll(path)
 		if err != nil {
-			fmt.Printf("cleanup error removing dir %v: %v\n", dir, err)
+			fmt.Printf("cleanup error removing path %v: %v\n", path, err)
 		}
 	}
 	if hostOS == "linux" {
 		_, err := os.Stat(udev.RulesPath + udev.RulesFile)
 		if !os.IsNotExist(err) {
-			_ = exec.Command("sudo", "rm", udev.RulesPath + udev.RulesFile).Run()
+			err = exec.Command("sudo", "rm", udev.RulesPath+udev.RulesFile).Run()
+			if err != nil {
+				fmt.Printf("cleanup error removing udev rules file: %v\n", err)
+			}
 		}
 	}
 }
