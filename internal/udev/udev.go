@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
+	"os"
 	"os/exec"
 	"text/template"
 )
@@ -72,12 +73,12 @@ func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 		return err
 	}
 	logger.Debug("udev: rules=%v", udevRulesOutput)
-	err = ioutil.WriteFile(RulesFile, udevRulesOutput, 0644)
+	err = ioutil.WriteFile(os.TempDir()+RulesFile, udevRulesOutput, 0644)
 	if err != nil {
 		return err
 	}
 	logger.Infof("udev: writing rules to %v/%v", RulesPath, RulesFile)
-	cmd = exec.Command("sudo", "cp", RulesFile, RulesPath)
+	cmd = exec.Command("sudo", "cp", os.TempDir()+RulesFile, RulesPath)
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to copy %v to %v: err=%v output=%v", RulesFile, RulesPath, err, string(output))
