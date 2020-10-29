@@ -46,6 +46,30 @@
       "revId": "f54cd8657355d8955d4d337b8425c9008b792831",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3a274b5_7131e9d0",
+        "filename": "main.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-29T05:07:17Z",
+      "side": 1,
+      "message": "seems like it would be ok to have the flashing package log the errors then?",
+      "parentUuid": "d1042e05_c43f0991",
+      "range": {
+        "startLine": 240,
+        "startChar": 1,
+        "endLine": 244,
+        "endChar": 11
+      },
+      "revId": "f54cd8657355d8955d4d337b8425c9008b792831",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
