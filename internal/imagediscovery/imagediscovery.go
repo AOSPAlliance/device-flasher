@@ -60,9 +60,6 @@ func getCodename(info os.FileInfo) (string, error) {
 }
 
 func validate(info os.FileInfo) error {
-	if !strings.HasSuffix(info.Name(), ".zip") {
-		return errors.New("not a zip")
-	}
 	if !strings.Contains(info.Name(), "factory") {
 		return errors.New("missing factory in filename")
 	}

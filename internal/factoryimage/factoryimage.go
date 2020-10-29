@@ -108,9 +108,6 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
 		return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
 	}
-	if !strings.HasSuffix(f.ImagePath, ".zip") {
-		return fmt.Errorf("%w: image filename should end in .zip", ErrorValidation)
-	}
 	if !strings.Contains(f.ImagePath, "factory") {
 		return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
 	}
