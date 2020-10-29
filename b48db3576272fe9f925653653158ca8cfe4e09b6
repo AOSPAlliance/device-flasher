@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6812245d_f12a6040",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-10-29T06:16:41Z",
+      "side": 1,
+      "message": "doesn\u0027t matter for udev but generally better to use os.PathSeparator",
+      "range": {
+        "startLine": 18,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "b48db3576272fe9f925653653158ca8cfe4e09b6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
