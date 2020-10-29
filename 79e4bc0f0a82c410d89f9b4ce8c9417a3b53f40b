@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d47931c7_8f7a944a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-29T08:37:54Z",
+      "side": 1,
+      "message": "I\u0027d change the commit message since technically this was already supported.\n\n\"Don\u0027t fail if image is not a zip since we support all archive types\" or something",
+      "revId": "79e4bc0f0a82c410d89f9b4ce8c9417a3b53f40b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
