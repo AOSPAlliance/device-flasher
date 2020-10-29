@@ -22,6 +22,30 @@
       "revId": "b48db3576272fe9f925653653158ca8cfe4e09b6",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4e94b1_db5b118b",
+        "filename": "internal/udev/udev.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-10-29T14:03:41Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6812245d_f12a6040",
+      "range": {
+        "startLine": 18,
+        "startChar": 35,
+        "endLine": 18,
+        "endChar": 38
+      },
+      "revId": "b48db3576272fe9f925653653158ca8cfe4e09b6",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": false
     }
   ]
 }
