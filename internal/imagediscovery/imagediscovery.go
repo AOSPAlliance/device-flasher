@@ -3,8 +3,8 @@ package imagediscovery
 import (
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -15,26 +15,23 @@ func Discover(discoverPath string) (map[string]string, error) {
 		return nil, err
 	}
 	if discoverInfo.IsDir() {
-		err := filepath.Walk(discoverPath, func(path string, info os.FileInfo, err error) error {
-			if info.IsDir() {
-				return nil
-			}
-			err = validate(info)
-			if err != nil {
-				return nil
-			}
-			codename, err := getCodename(info)
-			if err != nil {
-				return nil
-			}
-			if existing, ok := factoryImages[codename]; ok {
-				return fmt.Errorf("duplicate factory image (%v) for codename=%v found: %v", existing, codename, path)
-			}
-			factoryImages[codename] = path
-			return nil
-		})
+		discoverDir, err := ioutil.ReadDir(discoverPath)
 		if err != nil {
 			return nil, err
+		}
+		for _, file := range discoverDir {
+			err = validate(file)
+			if err != nil {
+				continue
+			}
+			codename, err := getCodename(file)
+			if err != nil {
+				continue
+			}
+			if existing, ok := factoryImages[codename]; ok {
+				return nil, fmt.Errorf("duplicate factory image (%v) for codename=%v found: %v", existing, codename, discoverPath)
+			}
+			factoryImages[codename] = discoverPath + string(os.PathSeparator) + file.Name()
 		}
 	} else {
 		err = validate(discoverInfo)
