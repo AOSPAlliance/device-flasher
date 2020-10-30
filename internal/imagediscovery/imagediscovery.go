@@ -60,8 +60,9 @@ func getCodename(info os.FileInfo) (string, error) {
 }
 
 func validate(info os.FileInfo) error {
-	if !strings.Contains(info.Name(), "factory") {
-		return errors.New("missing factory in filename")
-	}
+	//TODO re-enable when we drop support for jasmine
+	//if !strings.Contains(info.Name(), "factory") {
+	//	return errors.New("missing factory in filename")
+	//}
 	return nil
 }
