@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+const JASMINE_OREO = "jasmine_global_images_V9.6.17.0.ODIMIFE_20181108.0000.00_8.1_1c60295d1c.tgz"
+
 func Discover(discoverPath string) (map[string]string, error) {
 	factoryImages := map[string]string{}
 	discoverInfo, err := os.Stat(discoverPath)
@@ -52,6 +54,9 @@ func Discover(discoverPath string) (map[string]string, error) {
 }
 
 func getCodename(info os.FileInfo) (string, error) {
+	if info.Name() == JASMINE_OREO {
+		return "jasmine_sprout", nil
+	}
 	codename := strings.Split(info.Name(), "-")
 	if len(codename) <= 0 {
 		return "", errors.New("unable to parse codename")
@@ -60,8 +65,10 @@ func getCodename(info os.FileInfo) (string, error) {
 }
 
 func validate(info os.FileInfo) error {
-	if !strings.Contains(info.Name(), "factory") {
-		return errors.New("missing factory in filename")
+	if info.IsDir() || !strings.Contains(info.Name(), "factory") {
+		if !(info.Name() == JASMINE_OREO) {
+			return errors.New("missing factory in filename")
+		}
 	}
 	return nil
 }
