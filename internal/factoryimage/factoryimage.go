@@ -11,7 +11,8 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"strings"
+	"path/filepath"
+//	"strings"
 )
 
 var (
@@ -54,10 +55,17 @@ func (f *FactoryImage) FlashAll(device *device.Device, platformToolsPath platfor
 	pathWithPlatformTools := string(platformToolsPath) + string(os.PathListSeparator) + path
 
 	flashAll := fmt.Sprintf(".%v%v", string(os.PathSeparator), f.flashAllScript)
+	flashAllExtra := ""
+	if filepath.Base(f.ImagePath) == "jasmine_global_images_V9.6.17.0.ODIMIFE_20181108.0000.00_8.1_1c60295d1c.tgz" && f.hostOS == "linux" {
+		flashAllExtra = "/bin/sh"
+	}
 	f.logger.WithFields(logrus.Fields{
 		"flashAll": flashAll,
 	}).Debug("running flash all script on device")
 	flashCmd := exec.Command(flashAll)
+	if flashAllExtra != "" {
+		flashCmd = exec.Command(flashAllExtra, flashAll)
+	}
 	flashCmd.Dir = f.extractedDirectory
 	flashCmd.Env = os.Environ()
 	flashCmd.Env = append(flashCmd.Env, fmt.Sprintf("%v=%v", pathEnvironmentVariable, pathWithPlatformTools))
@@ -105,12 +113,12 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	if _, err := os.Stat(f.ImagePath); os.IsNotExist(err) {
 		return fmt.Errorf("%w: %v", ErrorValidation, err)
 	}
-	if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
-		return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
-	}
-	if !strings.Contains(f.ImagePath, "factory") {
-		return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
-	}
+	//if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
+	//	return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
+	//}
+	//if !strings.Contains(f.ImagePath, "factory") {
+	//	return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
+	//}
 	return nil
 }
 
@@ -144,9 +152,18 @@ func (f *FactoryImage) extract() error {
 }
 
 func (f *FactoryImage) postExtractValidations() error {
-	f.flashAllScript = "flash-all.sh"
-	if f.hostOS == "windows" {
-		f.flashAllScript = "flash-all.bat"
+	if filepath.Base(f.ImagePath) == "jasmine_global_images_V9.6.17.0.ODIMIFE_20181108.0000.00_8.1_1c60295d1c.tgz" {
+		if f.hostOS == "windows" {
+			f.flashAllScript = "flash_all.bat"
+		} else {
+			f.flashAllScript = "flash_all.sh"
+		}
+	} else {
+		if f.hostOS == "windows" {
+			f.flashAllScript = "flash-all.bat"
+		} else {
+			f.flashAllScript = "flash-all.sh"
+		}
 	}
 
 	// TODO this can probably be simplified
