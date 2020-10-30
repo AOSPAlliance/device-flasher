@@ -11,7 +11,8 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
-	"strings"
+	"path/filepath"
+//	"strings"
 )
 
 var (
@@ -105,12 +106,12 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 	if _, err := os.Stat(f.ImagePath); os.IsNotExist(err) {
 		return fmt.Errorf("%w: %v", ErrorValidation, err)
 	}
-	if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
-		return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
-	}
-	if !strings.Contains(f.ImagePath, "factory") {
-		return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
-	}
+	//if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
+	//	return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
+	//}
+	//if !strings.Contains(f.ImagePath, "factory") {
+	//	return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
+	//}
 	return nil
 }
 
@@ -144,9 +145,16 @@ func (f *FactoryImage) extract() error {
 }
 
 func (f *FactoryImage) postExtractValidations() error {
-	f.flashAllScript = "flash-all.sh"
+	f.flashAllScript = "flash"
+	if filepath.Base(f.ImagePath) == "jasmine_global_images_V9.6.17.0.ODIMIFE_20181108.0000.00_8.1_1c60295d1c.tgz" {
+		f.flashAllScript += "_"
+	} else {
+		f.flashAllScript += "-"
+	}
 	if f.hostOS == "windows" {
-		f.flashAllScript = "flash-all.bat"
+		f.flashAllScript += "all.bat"
+	} else {
+		f.flashAllScript += "all.sh"
 	}
 
 	// TODO this can probably be simplified
