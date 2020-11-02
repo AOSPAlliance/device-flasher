@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82b04c08_41d39e7a",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T22:17:36Z",
+      "side": 1,
+      "message": "This additional hack needed because the flash_all.sh script doesn\u0027t have a shebang",
+      "revId": "7d4cfef6bd03fdba31d5e1e0e7b7050925251db8",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}

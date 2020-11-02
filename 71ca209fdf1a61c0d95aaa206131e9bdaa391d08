@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "341717f6_12794aee",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T22:17:36Z",
+      "side": 1,
+      "message": "Additional hack needed since the flash_all script starts directly with fastboot, no shebang present.",
+      "revId": "71ca209fdf1a61c0d95aaa206131e9bdaa391d08",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18245c2c_a4914c15",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T22:17:36Z",
+      "side": 1,
+      "message": "Marked like I said. everything else checks for this variable, thus easy to grep.",
+      "revId": "71ca209fdf1a61c0d95aaa206131e9bdaa391d08",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71adef97_bfa74759",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T22:17:36Z",
+      "side": 1,
+      "message": "Kept this bit like it is now to make it easy to grep, and see what\u0027s happening.",
+      "revId": "71ca209fdf1a61c0d95aaa206131e9bdaa391d08",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
