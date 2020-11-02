@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d80672b_439d388c",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T21:04:12Z",
+      "side": 1,
+      "message": "We can keep this and just exclude the factory image here as well.",
+      "revId": "4a8815673d29a69833672cf2dd56e9f33a3ce611",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1ac9f3_62481a02",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T21:04:12Z",
+      "side": 1,
+      "message": "I guess we should probably make the factory image name a variable somewhere common if possible.",
+      "revId": "4a8815673d29a69833672cf2dd56e9f33a3ce611",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82bf3a9a_7e113b5a",
+        "filename": "internal/factoryimage/factoryimage.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-02T21:04:12Z",
+      "side": 1,
+      "message": "Feel like this would be easier to read with:\n\nif name matches\nflash_all\nelse\nflash-all\n\nif windows\n+ .bat\nelse\n+ .sh",
+      "revId": "4a8815673d29a69833672cf2dd56e9f33a3ce611",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
