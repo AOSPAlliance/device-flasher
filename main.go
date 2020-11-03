@@ -38,6 +38,7 @@ var (
 	adbTool      *adb.Tool
 	cleanupPaths []string
 	version      string
+	enableColorsStdout = true
 )
 
 func parseFlags() {
@@ -48,6 +49,7 @@ func parseFlags() {
 }
 
 func main() {
+	colorable.EnableColorsStdout(&enableColorsStdout)
 	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
 	parseFlags()
 
