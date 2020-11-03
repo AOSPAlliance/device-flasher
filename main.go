@@ -64,8 +64,12 @@ func main() {
 
 	err := execute(logger)
 	if err != nil {
-		logger.Fatal(err)
+		logger.Error(err)
 	}
+	fmt.Println()
+	fmt.Println(color.Red("Press ENTER to exit"))
+	_, _ = fmt.Scanln()
+	os.Exit(1)
 }
 
 func execute(logger *logrus.Logger) error {
