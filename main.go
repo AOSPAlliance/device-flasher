@@ -4,6 +4,14 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"fyne.io/fyne"
+	"fyne.io/fyne/app"
+	"fyne.io/fyne/canvas"
+	"fyne.io/fyne/container"
+	"fyne.io/fyne/dialog"
+	"fyne.io/fyne/layout"
+	"fyne.io/fyne/storage"
+	"fyne.io/fyne/widget"
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
@@ -18,6 +26,7 @@ import (
 	"gitlab.com/calyxos/device-flasher/internal/platformtools/fastboot"
 	"gitlab.com/calyxos/device-flasher/internal/udev"
 	"golang.org/x/sync/errgroup"
+	"image"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -51,6 +60,56 @@ func main() {
 	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
 	parseFlags()
 
+	if path == "" && parallel == false {
+		a := app.New()
+		w := a.NewWindow("Android Factory Image Flasher")
+		selectedFile := canvas.NewText(path, image.White)
+		flashButton := widget.NewButton("Flash", func() {
+			w.Close()
+		})
+		flashButton.Disable()
+		w.SetContent(
+			container.NewVBox(
+				container.NewHBox(
+					widget.NewButton("Select", func() {
+						w.Resize(fyne.Size{
+							Width:  400,
+							Height: 400,
+						})
+						d := dialog.NewFileOpen(
+							func(file fyne.URIReadCloser, err error) {
+								if file != nil {
+									path = strings.ReplaceAll(file.URI().String(), "file://", "")
+									selectedFile.Text = path
+									flashButton.Enable()
+									w.Resize(fyne.Size{
+										Width:  400,
+										Height: 100,
+									})
+								}
+							}, w)
+						wd, _ := os.Getwd()
+						lister, _ := storage.ListerForURI(storage.NewFileURI(wd))
+						d.SetLocation(lister)
+						d.SetFilter(storage.NewExtensionFileFilter([]string{".zip", ".tar.xz", ".tgz"}))
+						d.Show()
+					}),
+					selectedFile,
+				),
+				layout.NewSpacer(),
+				flashButton,
+			),
+		)
+		w.Resize(fyne.Size{
+			Width:  400,
+			Height: 100,
+		})
+		w.SetCloseIntercept(func() {
+			os.Exit(0)
+		})
+		w.ShowAndRun()
+	}
+
 	logger := logrus.New()
 	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
 	formatter.SetColorScheme(&prefixed.ColorScheme{
@@ -74,7 +133,7 @@ func execute(logger *logrus.Logger) error {
 
 	// check path is provided
 	if path == "" {
-		return fmt.Errorf("-image flag must be specified.")
+		return fmt.Errorf("-image flag must be specified")
 	}
 
 	// check path exists
