@@ -64,10 +64,10 @@ func main() {
 
 	err := execute(logger)
 	if err != nil {
-		logger.Error(err)
+		logger.Error(color.Red(err))
 	}
 	fmt.Println()
-	fmt.Println(color.Red("Press ENTER to exit"))
+	fmt.Print(color.Red("Press ENTER to exit"))
 	_, _ = fmt.Scanln()
 	os.Exit(1)
 }
@@ -78,13 +78,13 @@ func execute(logger *logrus.Logger) error {
 
 	// check path is provided
 	if path == "" {
-		return fmt.Errorf("-image flag must be specified.")
+		return fmt.Errorf("-image flag must be specified")
 	}
 
 	// check path exists
 	pathInfo, err := os.Stat(path)
 	if err != nil {
-		return fmt.Errorf(color.Red("unable to find provided path %v: %v"), path, err)
+		return fmt.Errorf("unable to find provided path %v: %v", path, err)
 	}
 
 	// non parallel only supports passing a file to be more explicit
@@ -96,14 +96,14 @@ func execute(logger *logrus.Logger) error {
 	logger.Debug("running image discovery")
 	images, err := imagediscovery.Discover(path)
 	if err != nil {
-		return fmt.Errorf(color.Red("image discovery failed for %v: %v"), path, err)
+		return fmt.Errorf("image discovery failed for %v: %v", path, err)
 	}
 
 	// setup udev if running linux
 	if hostOS == "linux" {
 		err := udev.Setup(logger, udev.DefaultUDevRules)
 		if err != nil {
-			return fmt.Errorf(color.Red("failed to setup udev: %v"), err)
+			return fmt.Errorf("failed to setup udev: %v", err)
 		}
 		cleanupPaths = append(cleanupPaths, udev.TempRulesFile)
 	}
@@ -113,7 +113,7 @@ func execute(logger *logrus.Logger) error {
 	toolsVersion := getToolsVersion(pathInfo)
 	toolZipCacheDir, tmpToolExtractDir, err := platformToolsDirs(string(toolsVersion))
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to setup platformtools temp directories: %v"), err)
+		return fmt.Errorf("failed to setup platformtools temp directories: %v", err)
 	}
 	platformTools, err := platformtools.New(&platformtools.Config{
 		CacheDir:             toolZipCacheDir,
@@ -124,14 +124,14 @@ func execute(logger *logrus.Logger) error {
 		Logger:               logger,
 	})
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to setup platformtools: %v"), err)
+		return fmt.Errorf("failed to setup platformtools: %v", err)
 	}
 
 	// adb setup
 	logger.Debug("setting up adb")
 	adbTool, err = adb.New(platformTools.Path(), hostOS)
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to setup adb: %v"), err)
+		return fmt.Errorf("failed to setup adb: %v", err)
 	}
 	err = adbTool.KillServer()
 	if err != nil {
@@ -139,14 +139,14 @@ func execute(logger *logrus.Logger) error {
 	}
 	err = adbTool.StartServer()
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to start adb server: %v"), err)
+		return fmt.Errorf("failed to start adb server: %v", err)
 	}
 
 	// fastboot setup
 	logger.Debug("setting up fastboot")
 	fastbootTool, err := fastboot.New(platformTools.Path(), hostOS)
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to setup fastboot: %v"), err)
+		return fmt.Errorf("failed to setup fastboot: %v", err)
 	}
 
 	// device discovery
@@ -158,13 +158,13 @@ func execute(logger *logrus.Logger) error {
 	_, _ = fmt.Scanln()
 	devicesMap, err := devicediscovery.New(adbTool, fastbootTool, logger).DiscoverDevices()
 	if err != nil {
-		return fmt.Errorf(color.Red("failed to run device discovery: %v"), err)
+		return fmt.Errorf("failed to run device discovery: %v", err)
 	}
 	logger.Info("Discovered the following device(s):")
 	for _, device := range devicesMap {
 		logger.Infof("📲 id=%v codename=%v (%v)", device.ID, device.Codename, device.DiscoveryTool)
 	}
-	fmt.Println("")
+	fmt.Println()
 
 	// factory image extraction
 	flashableDevices := []*device.Device{}
@@ -184,7 +184,7 @@ func execute(logger *logrus.Logger) error {
 			deviceLogger.Debug("creating temporary directory for extracting factory image for device")
 			tmpFactoryDir, err := tempExtractDir("factory")
 			if err != nil {
-				return fmt.Errorf(color.Red("failed to create temp dir for factory image: %v"), err)
+				return fmt.Errorf("failed to create temp dir for factory image: %v", err)
 			}
 			factoryImage = factoryimage.New(&factoryimage.Config{
 				HostOS:           hostOS,
@@ -196,7 +196,7 @@ func execute(logger *logrus.Logger) error {
 
 		err = factoryImage.Extract()
 		if err != nil {
-			return fmt.Errorf(color.Red("failed to extract factory image: %v"), err)
+			return fmt.Errorf("failed to extract factory image: %v", err)
 		}
 
 		factoryImages[string(d.Codename)] = factoryImage
@@ -206,11 +206,11 @@ func execute(logger *logrus.Logger) error {
 		return fmt.Errorf("there are no flashable devices")
 	}
 	if !parallel && len(flashableDevices) > 1 {
-		return fmt.Errorf(color.Red("discovered multiple devices and --parallel flag is not enabled"))
+		return fmt.Errorf("discovered multiple devices and --parallel flag is not enabled")
 	}
 
 	// flash devices
-	fmt.Println("")
+	fmt.Println()
 	logger.Info(color.Yellow("Flashing the following device(s):"))
 	for _, d := range flashableDevices {
 		logger.Infof(color.Yellow("📲 id=%v codename=%v image=%v"), d.ID, d.Codename, factoryImages[string(d.Codename)].ImagePath)
