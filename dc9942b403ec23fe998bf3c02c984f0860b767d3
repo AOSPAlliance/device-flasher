@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10c2298d_f054ae99",
+        "filename": "main.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-04T12:05:39Z",
+      "side": 1,
+      "message": "Just noticed this, but looks like you included https://review.calyxos.org/c/AOSPAlliance/device-flasher/+/600 into this change when rebasing. Oh well.",
+      "revId": "dc9942b403ec23fe998bf3c02c984f0860b767d3",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
