@@ -62,6 +62,9 @@ func getCodename(info os.FileInfo) (string, error) {
 }
 
 func validate(info os.FileInfo) error {
+	if strings.HasSuffix(info.Name(), ".sha256sum") {
+		return errors.New("skipping sha256sum file")
+	}
 	if info.IsDir() || !strings.Contains(info.Name(), "factory") {
 		if !(info.Name() == JASMINE_OREO) {
 			return errors.New("missing factory in filename")
