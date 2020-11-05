@@ -74,7 +74,7 @@ func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 	if err != nil {
 		return err
 	}
-	logger.Debug("udev: rules=%v", udevRulesOutput)
+	logger.Debugf("udev: rules=%v", udevRulesOutput)
 	err = ioutil.WriteFile(TempRulesFile, udevRulesOutput, 0644)
 	if err != nil {
 		return err
