@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb377ef9_0b150e2a",
+        "filename": "gui.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-06T22:30:01Z",
+      "side": 1,
+      "message": "Let\u0027s not add parallel to GUI yet.",
+      "revId": "183145dea8de0d22bcaaed9cf4fafe52bed0112d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
