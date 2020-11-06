@@ -3,6 +3,7 @@ module gitlab.com/calyxos/device-flasher
 go 1.15
 
 require (
+	fyne.io/fyne v1.4.0
 	github.com/golang/mock v1.4.4
 	github.com/mattn/go-colorable v0.1.7
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
