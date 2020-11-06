@@ -31,13 +31,13 @@ import (
 )
 
 var (
-	path         string
-	debug        bool
-	parallel     bool
-	hostOS       = runtime.GOOS
-	adbTool      *adb.Tool
-	cleanupPaths []string
-	version      string
+	path               string
+	debug              bool
+	parallel           bool
+	hostOS             = runtime.GOOS
+	adbTool            *adb.Tool
+	cleanupPaths       []string
+	version            string
 	enableColorsStdout = true
 )
 
@@ -52,6 +52,10 @@ func main() {
 	colorable.EnableColorsStdout(&enableColorsStdout)
 	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
 	parseFlags()
+
+	if GUI {
+		gui()
+	}
 
 	logger := logrus.New()
 	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
