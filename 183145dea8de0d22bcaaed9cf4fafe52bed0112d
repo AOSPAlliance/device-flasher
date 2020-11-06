@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "227aa4c4_7bdeef37",
+        "filename": "gui.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-06T22:50:50Z",
+      "side": 1,
+      "message": "I know, but the GUI we want in general won\u0027t work well with parallel. Best to leave them separate.",
+      "parentUuid": "eaa7b6d9_609fc6e4",
+      "revId": "183145dea8de0d22bcaaed9cf4fafe52bed0112d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "efaf4ebc_5e85b762",
         "filename": "gui.go",
         "patchSetId": 4
