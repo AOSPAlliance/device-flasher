@@ -16,6 +16,23 @@
       "revId": "183145dea8de0d22bcaaed9cf4fafe52bed0112d",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efaf4ebc_5e85b762",
+        "filename": "gui.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-06T22:32:10Z",
+      "side": 1,
+      "message": "This could just be either archiver\u0027s list, or a copy of that list.\n\nIn theory there\u0027s no extension list there I think, but in practice we can infer from the supported types.\n\nWould help with https://review.calyxos.org/c/AOSPAlliance/device-flasher/+/656 too.",
+      "revId": "183145dea8de0d22bcaaed9cf4fafe52bed0112d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
