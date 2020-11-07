@@ -3,6 +3,7 @@ package imagediscovery
 import (
 	"errors"
 	"fmt"
+	"github.com/mholt/archiver/v3"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -62,7 +63,11 @@ func getCodename(info os.FileInfo) (string, error) {
 }
 
 func validate(info os.FileInfo) error {
-	if info.IsDir() || !strings.Contains(info.Name(), "factory") {
+	_, err := archiver.ByExtension(info.Name())
+	if err != nil {
+		return err
+	}
+	if !strings.Contains(info.Name(), "factory") {
 		if !(info.Name() == JASMINE_OREO) {
 			return errors.New("missing factory in filename")
 		}

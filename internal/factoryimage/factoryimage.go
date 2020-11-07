@@ -122,6 +122,10 @@ func (f *FactoryImage) Validate(deviceCodename device.Codename) error {
 		if !strings.Contains(f.ImagePath, strings.ToLower(string(deviceCodename))) {
 			return fmt.Errorf("%w: image filename should contain device codename %v", ErrorValidation, deviceCodename)
 		}
+		_, err := archiver.ByExtension(f.ImagePath)
+		if err != nil {
+			return err
+		}
 		if !strings.Contains(f.ImagePath, "factory") {
 			return fmt.Errorf("%w: image filename should contain 'factory'", ErrorValidation)
 		}
