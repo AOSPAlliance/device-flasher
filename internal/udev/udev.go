@@ -58,12 +58,12 @@ SUBSYSTEM=="usb", ATTR{idVendor}=="{{.AttrIDVendor}}", GROUP="sudo"
 	return buf.Bytes(), nil
 }
 
-func Setup(logger *logrus.Logger, udevRules UDevRules) error {
+func Setup(logger *logrus.Logger, sudo string, udevRules UDevRules) error {
 	logger.Info("setting up udev - this will require elevated privileges and may prompt for password")
 
 	// setup udev rules path
 	logger.Infof("udev: creating %v", RulesPath)
-	cmd := exec.Command("sudo", "mkdir", "-p", RulesPath)
+	cmd := exec.Command(sudo, "mkdir", "-p", RulesPath)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to mkdir %v: err=%v output=%v", RulesPath, err, string(output))
@@ -80,7 +80,7 @@ func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 		return err
 	}
 	logger.Infof("udev: writing rules to %v/%v", RulesPath, RulesFile)
-	cmd = exec.Command("sudo", "cp", TempRulesFile, RulesPath)
+	cmd = exec.Command(sudo, "cp", TempRulesFile, RulesPath)
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to copy %v to %v: err=%v output=%v", RulesFile, RulesPath, err, string(output))
@@ -88,7 +88,7 @@ func Setup(logger *logrus.Logger, udevRules UDevRules) error {
 
 	// reload udev rules
 	logger.Info("udev: reloading rules with udevadm")
-	cmd = exec.Command("sudo", "udevadm", "control", "--reload-rules")
+	cmd = exec.Command(sudo, "udevadm", "control", "--reload-rules")
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		return fmt.Errorf("failed to reload udev rules: err=%v output=%v", err, string(output))
