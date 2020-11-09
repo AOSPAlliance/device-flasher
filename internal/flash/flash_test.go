@@ -2,14 +2,14 @@ package flash
 
 import (
 	"errors"
-	"github.com/golang/mock/gomock"
-	"github.com/sirupsen/logrus"
-	"github.com/stretchr/testify/assert"
 	"github.com/aospalliance/device-flasher/internal/device"
 	"github.com/aospalliance/device-flasher/internal/factoryimage"
 	"github.com/aospalliance/device-flasher/internal/flash/mocks"
 	"github.com/aospalliance/device-flasher/internal/platformtools"
 	"github.com/aospalliance/device-flasher/internal/platformtools/fastboot"
+	"github.com/golang/mock/gomock"
+	"github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
