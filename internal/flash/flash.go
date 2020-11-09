@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/calyxos/device-flasher/internal/color"
 	"gitlab.com/calyxos/device-flasher/internal/device"
 	"gitlab.com/calyxos/device-flasher/internal/platformtools"
 	"gitlab.com/calyxos/device-flasher/internal/platformtools/fastboot"
@@ -107,7 +106,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	}
 	if lockStatus != fastboot.Unlocked {
 		logger.Info("starting unlocking bootloader process")
-		logger.Info(color.Yellow("5. Please use the volume and power keys on the device to unlock the bootloader"))
+		logger.Info("Please use the volume and power keys on the device to unlock the bootloader")
 		if d.CustomHooks != nil && d.CustomHooks.FlashingPreUnlock != nil {
 			err := d.CustomHooks.FlashingPreUnlock(d, logger)
 			if err != nil {
@@ -129,7 +128,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Info("finished running flash all script")
 
 	logger.Info("starting re-locking bootloader process")
-	logger.Info(color.Yellow("6. Please use the volume and power keys on the device to lock the bootloader"))
+	logger.Info("Please use the volume and power keys on the device to lock the bootloader")
 	if d.CustomHooks != nil && d.CustomHooks.FlashingPreLock != nil {
 		err := d.CustomHooks.FlashingPreLock(d, logger)
 		if err != nil {
@@ -146,7 +145,6 @@ func (f *Flash) Flash(d *device.Device) error {
 	if err != nil {
 		logger.Warnf("failed to reboot device: %v. may need to manually reboot", err)
 	}
-	logger.Info(color.Yellow("7. Disable OEM unlocking from Developer Options after setting up your device"))
 
 	return nil
 }
