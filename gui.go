@@ -16,7 +16,6 @@ import (
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"os"
-	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -139,12 +138,35 @@ func selection(logger *logrus.Logger) {
 							widget.NewButton("Select", func() {
 								d := dialog.NewFileOpen(
 									func(file fyne.URIReadCloser, err error) {
-										if file != nil {
-											path = strings.ReplaceAll(file.URI().String(), "file://", "")
-											selectedFile.Text = filepath.Base(path)
-											selectedFile.Show()
-											nextButton.Enable()
+										d := &dialog.FileDialog{}
+										if !parallel {
+											d = dialog.NewFileOpen(
+												func(file fyne.URIReadCloser, err error) {
+													if file != nil {
+														path = strings.ReplaceAll(file.URI().String(), "file://", "")
+														selectedFile.Text = path
+														nextButton.Enable()
+													}
+												}, window)
+										} else {
+											d = dialog.NewFolderOpen(
+												func(folder fyne.ListableURI, err error) {
+													if folder != nil {
+														path = strings.ReplaceAll(folder.String(), "file://", "")
+														selectedFile.Text = path
+														nextButton.Enable()
+													}
+												}, window)
 										}
+										wd, _ := os.Getwd()
+										lister, _ := storage.ListerForURI(storage.NewFileURI(wd))
+										d.SetLocation(lister)
+										if !parallel {
+											//TODO add other archive file extensions
+											d.SetFilter(storage.NewExtensionFileFilter([]string{".zip", ".tar.xz", ".tgz"}))
+										}
+										d.Resize(window.Content().Size())
+										d.Show()
 									}, window)
 								wd, _ := os.Getwd()
 								lister, _ := storage.ListerForURI(storage.NewFileURI(wd))
