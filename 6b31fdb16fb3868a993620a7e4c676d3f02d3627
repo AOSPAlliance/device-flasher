@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea49f5f0_25a4d4eb",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-11-12T21:44:39Z",
+      "side": 1,
+      "message": "Could it be AOSPAlliance?",
+      "revId": "6b31fdb16fb3868a993620a7e4c676d3f02d3627",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
