@@ -1,4 +1,4 @@
-module gitlab.com/calyxos/device-flasher
+module github.com/aospalliance/device-flasher
 
 go 1.15
 

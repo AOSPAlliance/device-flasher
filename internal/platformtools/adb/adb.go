@@ -1,7 +1,7 @@
 package adb
 
 import (
-	"gitlab.com/calyxos/device-flasher/internal/platformtools"
+	"github.com/aospalliance/device-flasher/internal/platformtools"
 	"os"
 	"os/exec"
 	"path/filepath"

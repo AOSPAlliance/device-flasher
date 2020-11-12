@@ -5,10 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/calyxos/device-flasher/internal/color"
-	"gitlab.com/calyxos/device-flasher/internal/device"
-	"gitlab.com/calyxos/device-flasher/internal/platformtools"
-	"gitlab.com/calyxos/device-flasher/internal/platformtools/fastboot"
+	"github.com/aospalliance/device-flasher/internal/color"
+	"github.com/aospalliance/device-flasher/internal/device"
+	"github.com/aospalliance/device-flasher/internal/platformtools"
+	"github.com/aospalliance/device-flasher/internal/platformtools/fastboot"
 	"time"
 )
 

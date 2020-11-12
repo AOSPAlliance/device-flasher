@@ -5,8 +5,8 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/calyxos/device-flasher/internal/device"
-	"gitlab.com/calyxos/device-flasher/internal/devicediscovery/mocks"
+	"github.com/aospalliance/device-flasher/internal/device"
+	"github.com/aospalliance/device-flasher/internal/devicediscovery/mocks"
 	"testing"
 )
 

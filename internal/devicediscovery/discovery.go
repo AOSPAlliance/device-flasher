@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"gitlab.com/calyxos/device-flasher/internal/device"
+	"github.com/aospalliance/device-flasher/internal/device"
 )
 
 var (
