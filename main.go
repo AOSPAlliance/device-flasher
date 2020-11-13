@@ -10,9 +10,6 @@ import (
 	"github.com/aospalliance/device-flasher/internal/platformtools/adb"
 	"github.com/aospalliance/device-flasher/internal/platformtools/fastboot"
 	"github.com/aospalliance/device-flasher/internal/udev"
-	"github.com/mattn/go-colorable"
-	"github.com/sirupsen/logrus"
-	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -45,24 +42,10 @@ func parseFlags() {
 }
 
 func main() {
-	colorable.EnableColorsStdout(&enableColorsStdout)
-	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
-	parseFlags()
-
-	logger := logrus.New()
-	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
-	formatter.SetColorScheme(&prefixed.ColorScheme{
-		PrefixStyle: "white",
-	})
-	logger.SetFormatter(formatter)
-	logger.SetOutput(colorable.NewColorableStdout())
-	if debug {
-		logger.SetLevel(logrus.DebugLevel)
-	}
-
-	err := execute(logger)
+	err := execute()
 	if err != nil {
-		logger.Fatal(color.Red(err))
+		fmt.Println(color.Red(err))
+		os.Exit(1)
 	}
 }
 
