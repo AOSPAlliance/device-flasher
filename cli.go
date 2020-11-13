@@ -38,9 +38,24 @@ func confirmFlash(logger *logrus.Logger) {
 	_, _ = fmt.Scanln()
 }
 
-func execute(logger *logrus.Logger) error {
+func execute() error {
 	cleanupOnCtrlC()
 	defer cleanup()
+
+	colorable.EnableColorsStdout(&enableColorsStdout)
+	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
+	parseFlags()
+
+	logger := logrus.New()
+	formatter := &prefixed.TextFormatter{ForceColors: true, ForceFormatting: true}
+	formatter.SetColorScheme(&prefixed.ColorScheme{
+		PrefixStyle: "white",
+	})
+	logger.SetFormatter(formatter)
+	logger.SetOutput(colorable.NewColorableStdout())
+	if debug {
+		logger.SetLevel(logrus.DebugLevel)
+	}
 
 	err := pathValidation()
 	if err != nil {
