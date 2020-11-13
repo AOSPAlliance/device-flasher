@@ -63,8 +63,15 @@ func init() {
 	})
 }
 
-func execute(logger *logrus.Logger) error {
+func execute() error {
 	defer cleanup()
+	enableColorsStdout = false
+	colorable.EnableColorsStdout(&enableColorsStdout)
+	logger := logrus.New()
+	logger.SetFormatter(&prefixed.TextFormatter{ForceFormatting: true})
+	null, _ := os.Open(os.DevNull)
+	logger.SetOutput(null)
+
 	gui(logger)
 	window.ShowAndRun()
 	return nil
@@ -271,9 +278,6 @@ func (textGridWriter *scrollableTextGridWriter) Write(p []byte) (n int, err erro
 
 func flashing(logger *logrus.Logger) {
 	step := 7
-	enableColorsStdout = false
-	colorable.EnableColorsStdout(&enableColorsStdout)
-	logger.SetFormatter(&prefixed.TextFormatter{ForceFormatting: true})
 	textGrid := widget.NewTextGrid()
 	scroll := container.NewVScroll(textGrid)
 	progressBar := widget.NewProgressBar()
