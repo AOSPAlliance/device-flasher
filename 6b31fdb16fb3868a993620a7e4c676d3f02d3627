@@ -16,6 +16,24 @@
       "revId": "6b31fdb16fb3868a993620a7e4c676d3f02d3627",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6dae916_7eb45951",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2020-11-13T05:40:17Z",
+      "side": 1,
+      "message": "probably but for some reason all other imports are in small caps so must be a formatting convention? maybe Dan has input?",
+      "parentUuid": "ea49f5f0_25a4d4eb",
+      "revId": "6b31fdb16fb3868a993620a7e4c676d3f02d3627",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
     }
   ]
 }
