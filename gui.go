@@ -11,27 +11,35 @@ import (
 	"fyne.io/fyne/dialog"
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/storage"
-	"fyne.io/fyne/theme"
 	"fyne.io/fyne/widget"
 	"github.com/aospalliance/device-flasher/internal/udev"
+	"github.com/aospalliance/device-flasher/resources"
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
-	"image/color"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
 
 var application = app.New()
-var window = application.NewWindow("Android Factory Image Flasher")
+var window = application.NewWindow(title + " " + version)
+
+func padding(padding int, objects ...fyne.CanvasObject) *fyne.Container {
+	//TODO find better way to pad
+	padded := container.NewPadded(objects...)
+	for i := 0; i < padding; i++ {
+		padded = container.NewPadded(padded)
+	}
+	return padded
+}
 
 func init() {
-	application.Settings().SetTheme(theme.LightTheme())
 	window.SetMaster()
 	window.CenterOnScreen()
 	window.Resize(fyne.Size{
-		Width:  1280,
+		Width:  1024,
 		Height: 720,
 	})
 	window.SetCloseIntercept(func() {
@@ -80,15 +88,15 @@ func gui(logger *logrus.Logger) {
 			nil,
 			nil,
 			container.NewGridWithColumns(2,
-				container.NewCenter(
+				padding(5,
 					container.NewVBox(
-						&canvas.Text{Color: color.Black, Text: "Android Factory Image Flasher", Alignment: fyne.TextAlignCenter, TextSize: 24},
-						&canvas.Text{Color: color.Black, Text: version, TextSize: 24},
+						layout.NewSpacer(),
+						&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: title, TextSize: 24},
+						widget.NewLabel("Get ready for the most private\nmobile operating system in the world"),
+						layout.NewSpacer(),
 					),
 				),
-				container.NewCenter(
-					&canvas.Image{Resource: resourceAndroidSvg, FillMode: canvas.ImageFillOriginal},
-				),
+				splashScreen,
 			),
 		),
 	)
@@ -96,7 +104,8 @@ func gui(logger *logrus.Logger) {
 
 func selection(logger *logrus.Logger) {
 	step := 1
-	selectedFile := canvas.NewText("", color.Black)
+	selectedFile := widget.NewLabel("")
+	selectedFile.Hide()
 	nextButton := widget.NewButton("Next", func() {
 		err := pathValidation()
 		if err != nil {
@@ -124,43 +133,50 @@ func selection(logger *logrus.Logger) {
 					gui(logger)
 				}),
 				layout.NewSpacer(),
-				canvas.NewText(strconv.Itoa(step)+"/7", color.Black),
+				widget.NewLabel(strconv.Itoa(step)+"/7"),
 				layout.NewSpacer(),
 				nextButton,
 			),
 			nil,
 			nil,
-			container.NewCenter(
-				container.NewVBox(
-					&canvas.Text{Color: color.Black, Text: "Select Image", Alignment: fyne.TextAlignCenter, TextSize: 24},
-					selectedFile,
-					container.NewCenter(
-						widget.NewButton("Select", func() {
-							d := dialog.NewFileOpen(
-								func(file fyne.URIReadCloser, err error) {
-									if file != nil {
-										path = strings.ReplaceAll(file.URI().String(), "file://", "")
-										selectedFile.Text = path
-										nextButton.Enable()
-									}
-								}, window)
-							wd, _ := os.Getwd()
-							lister, _ := storage.ListerForURI(storage.NewFileURI(wd))
-							d.SetLocation(lister)
-							//TODO add other archive file extensions
-							d.SetFilter(storage.NewExtensionFileFilter([]string{".zip", ".tar.xz", ".tgz"}))
-							d.Resize(window.Content().Size())
-							d.Show()
-						}),
+			container.NewGridWithColumns(2,
+				padding(5,
+					container.NewVBox(
+						layout.NewSpacer(),
+						&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Select the CalyxOS image", TextSize: 24},
+						selectedFile,
+						container.NewHBox(
+							widget.NewButton("Select", func() {
+								d := dialog.NewFileOpen(
+									func(file fyne.URIReadCloser, err error) {
+										if file != nil {
+											path = strings.ReplaceAll(file.URI().String(), "file://", "")
+											selectedFile.Text = filepath.Base(path)
+											selectedFile.Show()
+											nextButton.Enable()
+										}
+									}, window)
+								wd, _ := os.Getwd()
+								lister, _ := storage.ListerForURI(storage.NewFileURI(wd))
+								d.SetLocation(lister)
+								//TODO add other archive file extensions
+								d.SetFilter(storage.NewExtensionFileFilter([]string{".zip", ".tar.xz", ".tgz"}))
+								d.Resize(window.Content().Size())
+								d.Show()
+							}),
+						),
+						layout.NewSpacer(),
 					),
 				),
+				splashScreen,
 			),
 		),
 	)
 }
 
 func preparation(logger *logrus.Logger, step int) {
-	text := &canvas.Text{}
+	heading := &canvas.Text{}
+	text := &widget.Label{}
 	screenshot := &canvas.Image{}
 	nextButtonLabel := "Next"
 	switch step {
@@ -168,23 +184,28 @@ func preparation(logger *logrus.Logger, step int) {
 		selection(logger)
 		return
 	case 2:
-		text = &canvas.Text{Color: color.Black, Text: "Connect to a wifi network and ensure that no SIM cards are installed", TextSize: 14}
-		screenshot = &canvas.Image{Resource: resourceWifisimPng, FillMode: canvas.ImageFillContain}
+		heading = &canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Prepare Your Device", TextSize: 24}
+		text = widget.NewLabel("1. Connect to a wifi network\n2. Remove your SIM card")
+		screenshot = &canvas.Image{Resource: resources.ResourceSettingsPanelPng, FillMode: canvas.ImageFillContain}
 	case 3:
-		text = &canvas.Text{Color: color.Black, Text: "Enable Developer Options (Settings -> About Phone -> tap \"Build number\" 7 times)", TextSize: 14}
-		screenshot = &canvas.Image{Resource: resourceBuildnumberPng, FillMode: canvas.ImageFillContain}
+		heading = &canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Enable Developer Mode", TextSize: 24}
+		text = widget.NewLabel("1. Go to Settings > About Phone\n2. Tap \"Build number\" 7 times")
+		screenshot = &canvas.Image{Resource: resources.ResourceDeveloperModePng, FillMode: canvas.ImageFillContain}
 	case 4:
-		text = &canvas.Text{Color: color.Black, Text: "Enable OEM Unlocking (Settings -> System -> Advanced -> Developer Options)", TextSize: 14}
-		screenshot = &canvas.Image{Resource: resourceOemunlockingPng, FillMode: canvas.ImageFillContain}
+		heading = &canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Enable OEM Unlocking", TextSize: 24}
+		text = widget.NewLabel("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"OEM Unlocking\" to enable it\n3. Press \"Enable\" on the \"Allow OEM unlocking?\" prompt")
+		screenshot = &canvas.Image{Resource: resources.ResourceOEMUnlockingPng, FillMode: canvas.ImageFillContain}
 	case 5:
-		text = &canvas.Text{Color: color.Black, Text: "Enable USB debugging (Settings -> System -> Advanced -> Developer Options)", TextSize: 14}
-		screenshot = &canvas.Image{Resource: resourceEnableusbdebuggingPng, FillMode: canvas.ImageFillContain}
+		heading = &canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Enable USB debugging", TextSize: 24}
+		text = widget.NewLabel("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"USB debugging\" to enable it\n3. Press \"OK\" on the \"Allow USB debugging?\" prompt")
+		screenshot = &canvas.Image{Resource: resources.ResourceEnableUSBDebuggingPng, FillMode: canvas.ImageFillContain}
 	case 6:
-		text = &canvas.Text{Color: color.Black, Text: "Plug the device into the computer and allow USB debugging", TextSize: 14}
-		screenshot = &canvas.Image{Resource: resourceAllowusbdebuggingPng, FillMode: canvas.ImageFillContain}
+		heading = &canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Connect to Your Computer", TextSize: 24}
+		text = widget.NewLabel("1. Plug the device into the computer\n2. Press \"Allow\" on the \"Allow USB debugging?\" prompt")
+		screenshot = &canvas.Image{Resource: resources.ResourceUSBDebuggingPng, FillMode: canvas.ImageFillContain}
 		nextButtonLabel = "Flash"
 	case 7:
-		loading := dialog.NewProgressInfinite("Loading", "Setting up platform tools...", window)
+		loading := dialog.NewProgressInfinite(title, "Setting up platform tools...", window)
 		err := setupPlatformTools(logger)
 		loading.Hide()
 		if err != nil {
@@ -195,8 +216,8 @@ func preparation(logger *logrus.Logger, step int) {
 		return
 	}
 	screenshot.SetMinSize(fyne.Size{
-		Width:  480,
-		Height: 0,
+		Width:  0,
+		Height: 480,
 	})
 	window.SetContent(
 		container.NewBorder(
@@ -206,7 +227,7 @@ func preparation(logger *logrus.Logger, step int) {
 					go func() { preparation(logger, step-1) }()
 				}),
 				layout.NewSpacer(),
-				canvas.NewText(strconv.Itoa(step)+"/7", color.Black),
+				widget.NewLabel(strconv.Itoa(step)+"/7"),
 				layout.NewSpacer(),
 				widget.NewButton(nextButtonLabel, func() {
 					go func() { preparation(logger, step+1) }()
@@ -215,8 +236,13 @@ func preparation(logger *logrus.Logger, step int) {
 			nil,
 			nil,
 			container.NewGridWithColumns(2,
-				container.NewCenter(
-					text,
+				padding(5,
+					container.NewVBox(
+						layout.NewSpacer(),
+						heading,
+						text,
+						layout.NewSpacer(),
+					),
 				),
 				screenshot,
 			),
@@ -246,20 +272,10 @@ func (textGridWriter *scrollableTextGridWriter) Write(p []byte) (n int, err erro
 		window.RequestFocus()
 		codename := line[strings.Index(line, "codename=")+len("codename=") : strings.Index(line, ":")]
 		line = strings.Split(line, ": ")[1]
-		screenshot := &canvas.Image{}
-		if strings.Contains(line, " lock ") {
-			screenshot = &canvas.Image{Resource: resourceBootloaderlockingJpg, FillMode: canvas.ImageFillContain}
-		} else {
-			screenshot = &canvas.Image{Resource: resourceBootloaderunlockingJpg, FillMode: canvas.ImageFillContain}
-		}
-		screenshot.SetMinSize(fyne.Size{
-			Width:  360,
-			Height: 0,
-		})
 		if codename == "walleye" || codename == "jasmine_sprout" {
-			line += "Note: your device will reboot\n\nAdditional steps:\n1. Disconnect the cable and power the device off\n2. Press and hold the volume down and power keys to boot the device into fastboot mode\n3. Reconnect the cable"
+			line += "Your device will reboot!\n\nWhen your phone reboots you'll need to complete the following steps:\n1. Disconnect the cable and power the device off\n2. Press and hold the volume down and power keys to boot the device into fastboot mode\n3. Reconnect the cable to your device"
 		}
-		bootloaderWarning := dialog.NewCustom("Warning", "OK", container.NewBorder(nil, nil, nil, screenshot, container.NewCenter(widget.NewLabel(line))), window)
+		bootloaderWarning := dialog.NewCustom("Hey, heads up...", "Done", widget.NewLabel(line), window)
 		bootloaderWarning.Resize(window.Content().Size())
 		bootloaderWarning.Show()
 	}
@@ -301,23 +317,23 @@ func flashing(logger *logrus.Logger) {
 	)
 	log.Resize(window.Content().Size())
 	installColumn := container.NewVBox(
-		&canvas.Text{Color: color.Black, Text: "Installing...", Alignment: fyne.TextAlignCenter, TextSize: 24},
+		layout.NewSpacer(),
+		&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Installing " + Vendor, Alignment: fyne.TextAlignCenter, TextSize: 24},
 		progressBar,
-		widget.NewButton("View Log", func() {
-			log.Show()
-		}),
-	)
-	installPadding := layout.NewSpacer()
-	padding := layout.NewSpacer()
-	infoColumn := container.NewVBox(
-		&canvas.Text{Color: color.Black, Text: "Need help?", Alignment: fyne.TextAlignCenter, TextSize: 24},
+		container.NewHBox(
+			widget.NewButton("View Log", func() {
+				log.Show()
+			}),
+		),
+		widget.NewLabel("* Do not interact with your device unless asked to\n* Do not unplug your device"),
+		layout.NewSpacer(),
 	)
 	footer := container.NewHBox(
 		widget.NewButton("Back", func() {
 			preparation(logger, step-1)
 		}),
 		layout.NewSpacer(),
-		canvas.NewText(strconv.Itoa(step)+"/7", color.Black),
+		widget.NewLabel(strconv.Itoa(step)+"/7"),
 		layout.NewSpacer(),
 	)
 	flashButton := widget.NewButton("Retry", func() {
@@ -325,13 +341,11 @@ func flashing(logger *logrus.Logger) {
 			textGrid.SetText("")
 			progressBar.SetValue(0)
 			installColumn.Show()
-			installPadding.Show()
 			footer.Hide()
 			err := deviceDiscovery(logger)
 			if err != nil {
 				dialog.ShowError(err, window)
 				installColumn.Hide()
-				installPadding.Hide()
 				footer.Show()
 				return
 			}
@@ -339,7 +353,6 @@ func flashing(logger *logrus.Logger) {
 			if err != nil {
 				dialog.ShowError(err, window)
 				installColumn.Hide()
-				installPadding.Hide()
 				footer.Show()
 				return
 			}
@@ -347,7 +360,6 @@ func flashing(logger *logrus.Logger) {
 			if err != nil {
 				dialog.ShowError(err, window)
 				installColumn.Hide()
-				installPadding.Hide()
 				footer.Show()
 				return
 			}
@@ -362,18 +374,8 @@ func flashing(logger *logrus.Logger) {
 			nil,
 			footer,
 			nil,
-			nil,
-			container.NewVBox(
-				layout.NewSpacer(),
-				container.NewHBox(
-					installPadding,
-					installColumn,
-					padding,
-					infoColumn,
-					padding,
-				),
-				layout.NewSpacer(),
-			),
+			infoColumn,
+			installColumn,
 		),
 	)
 }
@@ -390,22 +392,27 @@ func success() {
 			),
 			nil,
 			nil,
-			container.NewCenter(
-				container.NewVBox(
-					&canvas.Image{Resource: resourceSuccessSvg, FillMode: canvas.ImageFillOriginal},
-					&canvas.Text{Color: color.Black, Text: "Flashing Complete", Alignment: fyne.TextAlignCenter, TextSize: 24},
-					&canvas.Text{Color: color.Black, Text: "You can now unplug your device", Alignment: fyne.TextAlignCenter, TextSize: 14},
+			container.NewGridWithColumns(2,
+				padding(5,
+					container.NewVBox(
+						layout.NewSpacer(),
+						container.NewHBox(&canvas.Image{Resource: resources.ResourceSuccessSvg, FillMode: canvas.ImageFillOriginal}),
+						&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "You've successfully installed " + Vendor + "!", TextSize: 24},
+						&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "It's now safe to unplug your device", TextSize: 14},
+						layout.NewSpacer(),
+					),
 				),
+				splashScreen,
 			),
 		),
 	)
 }
 
 func relock() {
-	screenshot := &canvas.Image{Resource: resourceOemlockingPng, FillMode: canvas.ImageFillContain}
+	screenshot := &canvas.Image{Resource: resources.ResourceOEMLockPng, FillMode: canvas.ImageFillContain}
 	screenshot.SetMinSize(fyne.Size{
-		Width:  480,
-		Height: 0,
+		Width:  0,
+		Height: 480,
 	})
 	window.SetContent(
 		container.NewBorder(
@@ -419,10 +426,12 @@ func relock() {
 			nil,
 			nil,
 			container.NewGridWithColumns(2,
-				container.NewCenter(
+				padding(5,
 					container.NewVBox(
-						&canvas.Text{Color: color.Black, Text: "Re-enable OEM lock", Alignment: fyne.TextAlignCenter, TextSize: 24},
-						&canvas.Text{Color: color.Black, Text: "Disable OEM Unlocking (Settings -> System -> Advanced -> Developer Options)", Alignment: fyne.TextAlignCenter, TextSize: 14},
+						layout.NewSpacer(),
+						&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: "Re-enable OEM lock", TextSize: 24},
+						widget.NewLabel("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"OEM Unlocking\" to disable it"),
+						layout.NewSpacer(),
 					),
 				),
 				screenshot,

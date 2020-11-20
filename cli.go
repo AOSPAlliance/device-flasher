@@ -43,7 +43,7 @@ func execute() error {
 	defer cleanup()
 
 	colorable.EnableColorsStdout(&enableColorsStdout)
-	fmt.Println(color.Blue("Android Factory Image Flasher v" + version))
+	fmt.Println(color.Blue(title + " " + version))
 	parseFlags()
 
 	logger := logrus.New()
