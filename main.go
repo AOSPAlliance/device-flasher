@@ -17,6 +17,10 @@ import (
 	"syscall"
 )
 
+var Vendor string
+var title = Vendor + " Installer"
+var version string
+
 var (
 	path               string
 	debug              bool
@@ -30,7 +34,6 @@ var (
 	factoryImages      = map[string]*factoryimage.FactoryImage{}
 	platformTools      *platformtools.PlatformTools
 	cleanupPaths       []string
-	version            string
 	enableColorsStdout = true
 )
 
