@@ -17,6 +17,8 @@ import (
 	"syscall"
 )
 
+const title = vendor + " Installer"
+
 var (
 	path               string
 	debug              bool
