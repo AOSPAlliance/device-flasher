@@ -3,6 +3,7 @@
 package main
 
 import (
+	"fmt"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/canvas"
@@ -11,6 +12,7 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/storage"
 	"fyne.io/fyne/widget"
+	"github.com/aospalliance/device-flasher/internal/udev"
 	"github.com/aospalliance/device-flasher/resources"
 	"github.com/aospalliance/device-flasher/resources/strings"
 	"github.com/mattn/go-colorable"
