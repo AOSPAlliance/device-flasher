@@ -4,8 +4,8 @@ package devicediscovery
 import (
 	"errors"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"github.com/aospalliance/device-flasher/internal/device"
+	"github.com/sirupsen/logrus"
 )
 
 var (
