@@ -2,8 +2,8 @@ package device
 
 import (
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"github.com/aospalliance/device-flasher/internal/color"
+	"github.com/sirupsen/logrus"
 )
 
 const (
