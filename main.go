@@ -259,7 +259,7 @@ func execute(logger *logrus.Logger) error {
 
 func getToolsVersion(pathInfo os.FileInfo) platformtools.SupportedVersion {
 	// TODO: jasmine specific hack
-	toolsVersion := platformtools.Version_30_0_4
+	toolsVersion := platformtools.Version_30_0_5
 	if !pathInfo.IsDir() && strings.Contains(pathInfo.Name(), "jasmine") {
 		toolsVersion = platformtools.Version_29_0_6
 	}

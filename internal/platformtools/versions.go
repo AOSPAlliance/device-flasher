@@ -14,10 +14,10 @@ type SupportedVersion string
 
 const (
 	Version_29_0_6 SupportedVersion = "29.0.6"
-	Version_30_0_4 SupportedVersion = "30.0.4"
+	Version_30_0_5 SupportedVersion = "30.0.5"
 )
 
-var SupportedVersions = []SupportedVersion{Version_29_0_6, Version_30_0_4}
+var SupportedVersions = []SupportedVersion{Version_29_0_6, Version_30_0_5}
 
 type VersionInfo struct {
 	Release     SupportedVersion
@@ -40,19 +40,19 @@ var Downloads = map[SupportedVersion]map[SupportedHostOS]VersionInfo{
 			"%v/platform-tools_r29.0.6-windows.zip",
 			"247210e3c12453545f8e1f76e55de3559c03f2d785487b2e4ac00fe9698a039c"},
 	},
-	Version_30_0_4: {
+	Version_30_0_5: {
 		OSDarwin: VersionInfo{
-			Version_30_0_4,
-			"%v/fbad467867e935dce68a0296b00e6d1e76f15b15.platform-tools_r30.0.4-darwin.zip",
-			"e0db2bdc784c41847f854d6608e91597ebc3cef66686f647125f5a046068a890"},
+			Version_30_0_5,
+			"%v/eabcd8b4b7ab518c6af9c941af8494072f17ec4b.platform-tools_r30.0.5-darwin.zip",
+			"e5780bad71a53cf9d693e1053a0748f49e4a67cc1f71d16a94ab4c943af3345f"},
 		OSLinux: VersionInfo{
-			Version_30_0_4,
-			"%v/platform-tools_r30.0.4-linux.zip",
-			"5be24ed897c7e061ba800bfa7b9ebb4b0f8958cc062f4b2202701e02f2725891"},
+			Version_30_0_5,
+			"%v/platform-tools_r30.0.5-linux.zip",
+			"d6d72d006c03bd55d49b6cef9f00295db02f0a31da10e121427e1f4cb43e7cb9"},
 		OSWindows: VersionInfo{
-			Version_30_0_4,
-			"%v/platform-tools_r30.0.4-windows.zip",
-			"413182fff6c5957911e231b9e97e6be4fc6a539035e3dfb580b5c54bd5950fee",
+			Version_30_0_5,
+			"%v/platform-tools_r30.0.5-windows.zip",
+			"549ba2bdc31f335eb8a504f005f77606a479cc216d6b64a3e8b64c780003661f",
 		},
 	},
 }
