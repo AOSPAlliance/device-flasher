@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f4b5cd7_1e56a8a4",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "nit/preference: i prefer :\u003d over var declaration",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c0b6f0c_93f8c107",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "what needs to be fixed here?",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d53cace5_d3cd8e80",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "turn string into a constant. i think ideally these sorts of strings would be easily replaceable for people building the installer for non calyxos usage.",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8069e88_204ba168",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "make string a constant",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770acb9d_c06a57c7",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "should check if cwd fails and handle",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c0ccac1_8d58fecf",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "also handle error here as well",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d962cd5_61efb0cb",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "more string constants for each of these headings and text fields",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d24ef382_51e2dc73",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "large change: would be nice if there was a clean api between the gui and the underlying flashing code rather than just parsing the raw output.",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f347a99_28ddbad1",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "this seems like it could be cleaned up a bit. i think at least making the keyword more explicit/well defined would be an improvement.",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143c348a_e372dc14",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "would be nice if this logic didn\u0027t have to be embedded in the gui code at all. this goes back to the issue above of having a well defined contract between gui and api.",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6aa77ab_5861f9a7",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "uncomment",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8872d3e2_b081c1bf",
+        "filename": "main.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000006
+      },
+      "writtenOn": "2021-01-12T22:51:06Z",
+      "side": 1,
+      "message": "maybe move these over to gui.go as they aren\u0027t used here",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
