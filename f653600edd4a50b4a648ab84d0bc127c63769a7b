@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7d5a73af_94ce6397",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-13T18:37:01Z",
+      "side": 1,
+      "message": "can\u0027t do it easily given that it is used in 2 separate functions",
+      "parentUuid": "5f4b5cd7_1e56a8a4",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5c0b6f0c_93f8c107",
         "filename": "gui.go",
         "patchSetId": 17
@@ -30,6 +48,24 @@
       "writtenOn": "2021-01-12T22:51:06Z",
       "side": 1,
       "message": "what needs to be fixed here?",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "728468e2_2265deb6",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-13T18:37:01Z",
+      "side": 1,
+      "message": "gksudo doesn\u0027t work anymore for prompting sudo in a dialog. we need to find an alternative. we were thinking of removing udev stuff from the flasher and just have a script do that before executing flasher since it is only valid for linux anyway",
+      "parentUuid": "5c0b6f0c_93f8c107",
       "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "05215ddd_f4350162",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-13T18:37:01Z",
+      "side": 1,
+      "message": "suggestions as to how to handle?",
+      "parentUuid": "770acb9d_c06a57c7",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0c0ccac1_8d58fecf",
         "filename": "gui.go",
         "patchSetId": 17
@@ -98,6 +152,24 @@
       "writtenOn": "2021-01-12T22:51:06Z",
       "side": 1,
       "message": "also handle error here as well",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fbd711f_c2fa90fe",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-13T18:37:01Z",
+      "side": 1,
+      "message": "same",
+      "parentUuid": "0c0ccac1_8d58fecf",
       "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
@@ -132,6 +204,24 @@
       "writtenOn": "2021-01-12T22:51:06Z",
       "side": 1,
       "message": "large change: would be nice if there was a clean api between the gui and the underlying flashing code rather than just parsing the raw output.",
+      "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d7fa187_090723bc",
+        "filename": "gui.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000002
+      },
+      "writtenOn": "2021-01-13T18:37:01Z",
+      "side": 1,
+      "message": "the problem here is that fastboot does not have an API that I\u0027m aware of that allows for callbacks?",
+      "parentUuid": "d24ef382_51e2dc73",
       "revId": "f653600edd4a50b4a648ab84d0bc127c63769a7b",
       "serverId": "35266860-6252-469c-a67d-185064479fc0",
       "unresolved": true
