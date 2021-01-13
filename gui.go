@@ -64,19 +64,6 @@ func init() {
 	})
 }
 
-func setupUdev(logger *logrus.Logger) error {
-	// setup udev if running linux
-	if hostOS == "linux" {
-		//FIXME
-		err := udev.Setup(logger, "gksudo", udev.DefaultUDevRules)
-		if err != nil {
-			return fmt.Errorf("failed to setup udev: %v", err)
-		}
-		cleanupPaths = append(cleanupPaths, udev.TempRulesFile)
-	}
-	return nil
-}
-
 func execute(logger *logrus.Logger) error {
 	defer cleanup()
 	gui(logger)
@@ -122,11 +109,6 @@ func selection(logger *logrus.Logger) {
 			return
 		}
 		err = imageDiscovery(logger)
-		if err != nil {
-			dialog.ShowError(err, window)
-			return
-		}
-		err = setupUdev(logger)
 		if err != nil {
 			dialog.ShowError(err, window)
 			return
