@@ -3,7 +3,6 @@
 package main
 
 import (
-	"fmt"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/canvas"
@@ -12,19 +11,19 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/storage"
 	"fyne.io/fyne/widget"
-	"github.com/aospalliance/device-flasher/internal/udev"
 	"github.com/aospalliance/device-flasher/resources"
+	"github.com/aospalliance/device-flasher/resources/strings"
 	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"os"
 	"path/filepath"
 	"strconv"
-	"strings"
+	str "strings"
 )
 
 var application = app.New()
-var window = application.NewWindow(title + " " + version)
+var window = application.NewWindow(strings.Title + " " + version)
 
 var splashScreen = container.NewPadded()
 var infoColumn = container.NewGridWithRows(2)
@@ -40,7 +39,7 @@ func padding(padding int, objects ...fyne.CanvasObject) *fyne.Container {
 
 func header(text string) *fyne.Container {
 	vbox := container.NewVBox()
-	for _, line := range strings.Split(text, "\n") {
+	for _, line := range str.Split(text, "\n") {
 		vbox.Add(&canvas.Text{Color: fyne.CurrentApp().Settings().Theme().TextColor(), Text: line, TextSize: 32})
 	}
 	return vbox
@@ -91,7 +90,7 @@ func gui(logger *logrus.Logger) {
 			nil,
 			container.NewHBox(
 				layout.NewSpacer(),
-				widget.NewButton("Next", func() {
+				widget.NewButton(strings.Next, func() {
 					selection(logger)
 				}),
 			),
@@ -101,8 +100,8 @@ func gui(logger *logrus.Logger) {
 				padding(5,
 					container.NewVBox(
 						layout.NewSpacer(),
-						header(title),
-						body("Get ready for the most private mobile operating system in the world"),
+						header(strings.Title),
+						body(strings.Welcome),
 						layout.NewSpacer(),
 					),
 				),
@@ -116,7 +115,7 @@ func selection(logger *logrus.Logger) {
 	step := 1
 	selectedFile := widget.NewLabel("")
 	selectedFile.Hide()
-	nextButton := widget.NewButton("Next", func() {
+	nextButton := widget.NewButton(strings.Next, func() {
 		err := pathValidation()
 		if err != nil {
 			dialog.ShowError(err, window)
@@ -139,7 +138,7 @@ func selection(logger *logrus.Logger) {
 		container.NewBorder(
 			nil,
 			container.NewHBox(
-				widget.NewButton("Back", func() {
+				widget.NewButton(strings.Back, func() {
 					gui(logger)
 				}),
 				layout.NewSpacer(),
@@ -153,14 +152,14 @@ func selection(logger *logrus.Logger) {
 				padding(5,
 					container.NewVBox(
 						layout.NewSpacer(),
-						header("Select the CalyxOS image"),
+						header(strings.SelectHeader),
 						selectedFile,
 						container.NewHBox(
-							widget.NewButton("Select", func() {
+							widget.NewButton(strings.Select, func() {
 								d := dialog.NewFileOpen(
 									func(file fyne.URIReadCloser, err error) {
 										if file != nil {
-											path = strings.ReplaceAll(file.URI().String(), "file://", "")
+											path = str.ReplaceAll(file.URI().String(), "file://", "")
 											selectedFile.Text = filepath.Base(path)
 											selectedFile.Show()
 											nextButton.Enable()
@@ -188,34 +187,34 @@ func preparation(logger *logrus.Logger, step int) {
 	heading := &fyne.Container{}
 	text := &widget.Label{}
 	screenshot := &canvas.Image{}
-	nextButtonLabel := "Next"
+	nextButtonLabel := strings.Next
 	switch step {
 	case 1:
 		selection(logger)
 		return
 	case 2:
-		heading = header("Prepare Your Device")
-		text = body("1. Connect to a wifi network\n2. Remove your SIM card")
+		heading = header(strings.PrepareDeviceHeader)
+		text = body(strings.PrepareDeviceBody)
 		screenshot = &canvas.Image{Resource: resources.ResourceSettingsPanelPng, FillMode: canvas.ImageFillContain}
 	case 3:
-		heading = header("Enable Developer Mode")
-		text = body("1. Go to Settings > About Phone\n2. Tap \"Build number\" 7 times")
+		heading = header(strings.DeveloperModeHeader)
+		text = body(strings.DeveloperModeBody)
 		screenshot = &canvas.Image{Resource: resources.ResourceEnableDeveloperSettingsPng, FillMode: canvas.ImageFillContain}
 	case 4:
-		heading = header("Enable OEM Unlocking")
-		text = body("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"OEM Unlocking\" to enable it\n3. Press \"Enable\" on the \"Allow OEM unlocking?\" prompt")
+		heading = header(strings.OemUnlockingHeader)
+		text = body(strings.OemUnlockingBody)
 		screenshot = &canvas.Image{Resource: resources.ResourceOEMUnlockingPng, FillMode: canvas.ImageFillContain}
 	case 5:
-		heading = header("Enable USB debugging")
-		text = body("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"USB debugging\" to enable it\n3. Press \"OK\" on the \"Allow USB debugging?\" prompt")
+		heading = header(strings.UsbDebuggingHeader)
+		text = body(strings.UsbDebuggingBody)
 		screenshot = &canvas.Image{Resource: resources.ResourceEnableUSBDebuggingPng, FillMode: canvas.ImageFillContain}
 	case 6:
-		heading = header("Connect to Your Computer")
-		text = body("1. Plug the device into the computer\n2. Press \"Allow\" on the \"Allow USB debugging?\" prompt")
+		heading = header(strings.PlugDeviceHeader)
+		text = body(strings.PlugDeviceBody)
 		screenshot = &canvas.Image{Resource: resources.ResourceAllowUSBDebuggingPng, FillMode: canvas.ImageFillContain}
-		nextButtonLabel = "Flash"
+		nextButtonLabel = strings.Flash
 	case 7:
-		loading := dialog.NewProgressInfinite(title, "Setting up platform tools...", window)
+		loading := dialog.NewProgressInfinite(strings.Title, strings.SetupPlatformTools, window)
 		err := setupPlatformTools(logger)
 		loading.Hide()
 		if err != nil {
@@ -230,7 +229,7 @@ func preparation(logger *logrus.Logger, step int) {
 		container.NewBorder(
 			nil,
 			container.NewHBox(
-				widget.NewButton("Back", func() {
+				widget.NewButton(strings.Back, func() {
 					go func() { preparation(logger, step-1) }()
 				}),
 				layout.NewSpacer(),
@@ -275,14 +274,14 @@ func (textGridWriter *scrollableTextGridWriter) Write(p []byte) (n int, err erro
 	if flashableDevices != nil {
 		textGridWriter.ProgressBar.SetValue(textGridWriter.ProgressBar.Value + (0.0075 / float64(len(flashableDevices))))
 	}
-	if strings.Contains(line, "Please") {
+	if str.Contains(line, strings.DeviceInstructions) {
 		window.RequestFocus()
-		codename := line[strings.Index(line, "codename=")+len("codename=") : strings.Index(line, ":")]
-		line = strings.Split(line, ": ")[1]
+		codename := line[str.Index(line, "codename=")+len("codename=") : str.Index(line, ":")]
+		line = str.Split(line, ": ")[1]
 		if codename == "walleye" || codename == "jasmine_sprout" {
-			line += "Your device will reboot!\n\nWhen your phone reboots you'll need to complete the following steps:\n1. Disconnect the cable and power the device off\n2. Press and hold the volume down and power keys to boot the device into fastboot mode\n3. Reconnect the cable to your device"
+			line += strings.DeviceRebootRequired
 		}
-		bootloaderWarning := dialog.NewCustom("Hey, heads up...", "Done", body(line), window)
+		bootloaderWarning := dialog.NewCustom(strings.HeadsUp, strings.Done, body(line), window)
 		bootloaderWarning.Resize(window.Content().Size())
 		bootloaderWarning.Show()
 	}
@@ -297,14 +296,14 @@ func flashing(logger *logrus.Logger) {
 	textGrid := widget.NewTextGrid()
 	scroll := container.NewVScroll(textGrid)
 	progressBar := widget.NewProgressBar()
-	log := application.NewWindow("Log")
+	log := application.NewWindow(strings.Log)
 	log.SetCloseIntercept(func() {
 		log.Hide()
 	})
 	log.SetContent(
 		container.NewBorder(
 			nil,
-			widget.NewButton("Save Log", func() {
+			widget.NewButton(strings.Save + " " + strings.Log, func() {
 				d := dialog.NewFileSave(func(file fyne.URIWriteCloser, err error) {
 					if file != nil {
 						_, err = file.Write([]byte(textGrid.Text()))
@@ -328,25 +327,25 @@ func flashing(logger *logrus.Logger) {
 	log.Resize(window.Content().Size())
 	installColumn := container.NewVBox(
 		layout.NewSpacer(),
-		container.NewCenter(header("Installing "+Vendor)),
+		container.NewCenter(header(strings.InstallHeader)),
 		progressBar,
 		container.NewHBox(
-			widget.NewButton("View Log", func() {
+			widget.NewButton(strings.View + " " + strings.Log, func() {
 				log.Show()
 			}),
 		),
-		body("* Do not interact with your device unless asked to\n* Do not unplug your device"),
+		body(strings.InstallBody),
 		layout.NewSpacer(),
 	)
 	footer := container.NewHBox(
-		widget.NewButton("Back", func() {
+		widget.NewButton(strings.Back, func() {
 			preparation(logger, step-1)
 		}),
 		layout.NewSpacer(),
 		widget.NewLabel(strconv.Itoa(step)+"/7"),
 		layout.NewSpacer(),
 	)
-	flashButton := widget.NewButton("Retry", func() {
+	flashButton := widget.NewButton(strings.Retry, func() {
 		go func() {
 			textGrid.SetText("")
 			progressBar.SetValue(0)
@@ -396,7 +395,7 @@ func success() {
 			nil,
 			container.NewHBox(
 				layout.NewSpacer(),
-				widget.NewButton("Next", func() {
+				widget.NewButton(strings.Next, func() {
 					relock()
 				}),
 			),
@@ -407,8 +406,8 @@ func success() {
 					container.NewVBox(
 						layout.NewSpacer(),
 						container.NewHBox(&canvas.Image{Resource: resources.ResourceSuccessSvg, FillMode: canvas.ImageFillOriginal}),
-						header("You've successfully installed\n"+Vendor+"!"),
-						body("It's now safe to unplug your device"),
+						header(strings.SuccessHeader),
+						body(strings.SuccessBody),
 						layout.NewSpacer(),
 					),
 				),
@@ -425,7 +424,7 @@ func relock() {
 			nil,
 			container.NewHBox(
 				layout.NewSpacer(),
-				widget.NewButton("Finish", func() {
+				widget.NewButton(strings.Finish, func() {
 					window.Close()
 				}),
 			),
@@ -435,8 +434,8 @@ func relock() {
 				padding(5,
 					container.NewVBox(
 						layout.NewSpacer(),
-						header("Re-enable OEM lock"),
-						body("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"OEM Unlocking\" to disable it"),
+						header(strings.OemLockHeader),
+						body(strings.OemLockBody),
 						layout.NewSpacer(),
 					),
 				),
