@@ -7,6 +7,7 @@ import (
 	"github.com/aospalliance/device-flasher/internal/device"
 	"github.com/aospalliance/device-flasher/internal/platformtools"
 	"github.com/aospalliance/device-flasher/internal/platformtools/fastboot"
+	"github.com/aospalliance/device-flasher/resources/strings"
 	"github.com/sirupsen/logrus"
 	"time"
 )
@@ -106,7 +107,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	}
 	if lockStatus != fastboot.Unlocked {
 		logger.Info("starting unlocking bootloader process")
-		logger.Info("Please follow the instructions on the device to unlock the bootloader")
+		logger.Info(strings.UnlockBootloader)
 		if d.CustomHooks != nil && d.CustomHooks.FlashingPreUnlock != nil {
 			err := d.CustomHooks.FlashingPreUnlock(d, logger)
 			if err != nil {
@@ -128,7 +129,7 @@ func (f *Flash) Flash(d *device.Device) error {
 	logger.Info("finished running flash all script")
 
 	logger.Info("starting re-locking bootloader process")
-	logger.Info("Please follow the instructions on the device to lock the bootloader")
+	logger.Info(strings.LockBootloader)
 	if d.CustomHooks != nil && d.CustomHooks.FlashingPreLock != nil {
 		err := d.CustomHooks.FlashingPreLock(d, logger)
 		if err != nil {
