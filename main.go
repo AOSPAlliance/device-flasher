@@ -20,8 +20,6 @@ import (
 	"syscall"
 )
 
-var Vendor string
-var title = Vendor + " Installer"
 var version string
 
 var (
