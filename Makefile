@@ -16,9 +16,9 @@ CALYXOS_RESOURCES += $(patsubst %.svg,%.go,$(wildcard resources/calyxos/*.svg))
 $(PROGRAM_NAME).%: CGO := CGO_ENABLED=0
 $(PROGRAM_NAME).%: TAGS := -tags ""
 $(PROGRAM_GUI_NAME).%: CGO := CGO_ENABLED=1
-$(PROGRAM_GUI_NAME).%: TAGS := -tags GUI
+$(PROGRAM_GUI_NAME).%: TAGS := -tags "GUI en"
 $(PROGRAM_GUI_CALYXOS_NAME).%: CGO := CGO_ENABLED=1
-$(PROGRAM_GUI_CALYXOS_NAME).%: TAGS := -tags "GUI CalyxOS"
+$(PROGRAM_GUI_CALYXOS_NAME).%: TAGS := -tags "GUI en CalyxOS"
 
 all: build
 
