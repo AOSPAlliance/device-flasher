@@ -7,6 +7,8 @@ VERSION := $(shell git describe --always --tags --dirty='-dirty')
 LDFLAGS := -ldflags "-X main.version=$(VERSION)"
 COMMON_ARGS := GOARCH=amd64
 SOURCES := $(wildcard *.go internal/*/*.go resources/*.go resources/*/*.go)
+RESOURCES := $(patsubst %.png,%.go,$(wildcard resources/*.png))
+RESOURCES += $(patsubst %.svg,%.go,$(wildcard resources/*.svg))
 
 $(PROGRAM_NAME).%: CGO := CGO_ENABLED=0
 $(PROGRAM_NAME).%: TAGS := -tags ""
@@ -35,9 +37,19 @@ $(PROGRAM_GUI_NAME).exe: $(SOURCES)
 $(PROGRAM_GUI_NAME).darwin: $(SOURCES)
 	$(COMMON_ARGS) $(CGO) GOOS=darwin go build -mod=vendor $(TAGS) $(LDFLAGS) -o $@
 
+resources/%.go: resources/%.png
+	fyne bundle -package resources $< > $@
+
+resources/%.go: resources/%.svg
+	fyne bundle -package resources $< > $@
+
 .PHONY: build
 build: $(PROGRAMS)
 	@echo Built $(VERSION)
+
+.PHONY: resources
+resources: $(RESOURCES)
+	@echo Updated resources
 
 clean:
 	-rm $(PROGRAMS)
