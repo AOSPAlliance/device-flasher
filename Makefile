@@ -13,7 +13,7 @@ RESOURCES += $(patsubst %.svg,%.go,$(wildcard resources/*.svg))
 $(PROGRAM_NAME).%: CGO := CGO_ENABLED=0
 $(PROGRAM_NAME).%: TAGS := -tags ""
 $(PROGRAM_GUI_NAME).%: CGO := CGO_ENABLED=1
-$(PROGRAM_GUI_NAME).%: TAGS := -tags GUI
+$(PROGRAM_GUI_NAME).%: TAGS := -tags "GUI en"
 
 all: build
 
