@@ -1,3 +1,5 @@
+// auto-generated
+
 package resources
 
 import "fyne.io/fyne"

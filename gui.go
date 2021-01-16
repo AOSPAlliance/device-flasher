@@ -176,23 +176,23 @@ func preparation(logger *logrus.Logger, step int) {
 	case 2:
 		heading = header("Prepare Your Device")
 		text = body("1. Connect to a wifi network\n2. Remove your SIM card")
-		screenshot = &canvas.Image{Resource: resources.ResourceSettingsPanelPng, FillMode: canvas.ImageFillContain}
+		screenshot = &canvas.Image{Resource: resources.ResourceSettingspanelPng, FillMode: canvas.ImageFillContain}
 	case 3:
 		heading = header("Enable Developer Mode")
 		text = body("1. Go to Settings > About Phone\n2. Tap \"Build number\" 7 times")
-		screenshot = &canvas.Image{Resource: resources.ResourceEnableDeveloperSettingsPng, FillMode: canvas.ImageFillContain}
+		screenshot = &canvas.Image{Resource: resources.ResourceEnabledevelopersettingsPng, FillMode: canvas.ImageFillContain}
 	case 4:
 		heading = header("Enable OEM Unlocking")
 		text = body("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"OEM Unlocking\" to enable it\n3. Press \"Enable\" on the \"Allow OEM unlocking?\" prompt")
-		screenshot = &canvas.Image{Resource: resources.ResourceOEMUnlockingPng, FillMode: canvas.ImageFillContain}
+		screenshot = &canvas.Image{Resource: resources.ResourceOemunlockingPng, FillMode: canvas.ImageFillContain}
 	case 5:
 		heading = header("Enable USB debugging")
 		text = body("1. Go to Settings > System > Advanced > Developer Options\n2. Tap the toggle labelled \"USB debugging\" to enable it\n3. Press \"OK\" on the \"Allow USB debugging?\" prompt")
-		screenshot = &canvas.Image{Resource: resources.ResourceEnableUSBDebuggingPng, FillMode: canvas.ImageFillContain}
+		screenshot = &canvas.Image{Resource: resources.ResourceEnableusbdebuggingPng, FillMode: canvas.ImageFillContain}
 	case 6:
 		heading = header("Connect to Your Computer")
 		text = body("1. Plug the device into the computer\n2. Press \"Allow\" on the \"Allow USB debugging?\" prompt")
-		screenshot = &canvas.Image{Resource: resources.ResourceAllowUSBDebuggingPng, FillMode: canvas.ImageFillContain}
+		screenshot = &canvas.Image{Resource: resources.ResourceAllowusbdebuggingPng, FillMode: canvas.ImageFillContain}
 		nextButtonLabel = "Flash"
 	case 7:
 		loading := dialog.NewProgressInfinite(title, "Setting up platform tools...", window)
@@ -399,7 +399,7 @@ func success() {
 }
 
 func relock() {
-	screenshot := &canvas.Image{Resource: resources.ResourceOEMLockPng, FillMode: canvas.ImageFillContain}
+	screenshot := &canvas.Image{Resource: resources.ResourceOemlockPng, FillMode: canvas.ImageFillContain}
 	window.SetContent(
 		container.NewBorder(
 			nil,
