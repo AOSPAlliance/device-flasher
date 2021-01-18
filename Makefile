@@ -29,13 +29,13 @@ $(PROGRAM_NAME).darwin: $(SOURCES)
 
 # GUI
 $(PROGRAM_GUI_NAME).linux: $(SOURCES)
-	$(COMMON_ARGS) $(CGO) GOOS=linux go build -mod=vendor $(TAGS) $(LDFLAGS) -o $@
+	fyne-cross linux -arch amd64 -env "GOFLAGS=-mod=vendor" $(TAGS) $(LDFLAGS) -name $@
 
 $(PROGRAM_GUI_NAME).exe: $(SOURCES)
-	$(COMMON_ARGS) $(CGO) GOOS=windows go build -mod=vendor $(TAGS) $(LDFLAGS) -o $@
+	fyne-cross windows -arch amd64 -env "GOFLAGS=-mod=vendor" $(TAGS) $(LDFLAGS) -name $@
 
 $(PROGRAM_GUI_NAME).darwin: $(SOURCES)
-	$(COMMON_ARGS) $(CGO) GOOS=darwin go build -mod=vendor $(TAGS) $(LDFLAGS) -o $@
+	fyne-cross darwin -arch amd64 -env "GOFLAGS=-mod=vendor" $(TAGS) $(LDFLAGS) -name $@
 
 resources/%.go: resources/%.png
 	fyne bundle -package resources $< > $@
