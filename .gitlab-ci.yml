@@ -21,3 +21,5 @@ compile:
       - '*.linux'
       - '*.exe'
       - '*.darwin'
+      - 'fyne-cross/dist'
+      - 'fyne-cross/bin'
