@@ -1,5 +1,11 @@
 image: golang:latest
 
+cache:
+  paths:
+    - /go/src/fyne.io
+    - /go/src/github.com
+    - /go/src/golang.org
+
 stages:
   - test
   - build
