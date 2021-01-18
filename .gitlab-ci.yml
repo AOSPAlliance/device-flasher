@@ -5,6 +5,12 @@ stages:
   - build
   - deploy
 
+before_script:
+    - pushd $GOPATH
+    - go get -u fyne.io/fyne/cmd/fyne
+    - go get -u github.com/fyne-io/fyne-cross
+    - popd
+
 format:
   stage: test
   script:
