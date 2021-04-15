@@ -349,6 +349,18 @@ func flashDevices(devices map[string]string) {
 					return
 				}
 			}
+			if device == "jasmine" {
+				fmt.Println("Unlocking (critical) " + device + " " + serialNumber + " bootloader...")
+				warnln("5.1 Please use the volume and power keys on the device to unlock the bootloader (critical)")
+				fmt.Println()
+				warnln("  5.1a. Once " + device + " " + serialNumber + " boots, disconnect its cable and power it off")
+				warnln("  5.1b. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.")
+				fmt.Println("The installation will resume automatically")
+				platformToolCommand = *fastboot
+				platformToolCommand.Args = append(platformToolCommand.Args, "-s", serialNumber, "flashing", "unlock_critical")
+				_ = platformToolCommand.Start()
+				time.Sleep(30 * time.Second)
+			}
 			fmt.Println("Flashing " + device + " " + serialNumber + " bootloader...")
 			flashAll := exec.Command("." + string(os.PathSeparator) + "flash-all" + func() string {
 				if OS == "windows" {
