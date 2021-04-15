@@ -333,7 +333,7 @@ func flashDevices(devices map[string]string) {
 			_ = platformToolCommand.Run()
 			fmt.Println("Unlocking " + device + " " + serialNumber + " bootloader...")
 			warnln("5. Please use the volume and power keys on the device to unlock the bootloader")
-			if device == "jasmine" || device == "walleye" {
+			if device == "jasmine_sprout" || device == "walleye" {
 				fmt.Println()
 				warnln("  5a. Once " + device + " " + serialNumber + " boots, disconnect its cable and power it off")
 				warnln("  5b. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.")
@@ -348,6 +348,18 @@ func flashDevices(devices map[string]string) {
 					errorln("Failed to unlock "+device+" "+serialNumber+" bootloader", false)
 					return
 				}
+			}
+			if device == "jasmine_sprout" {
+				fmt.Println("Unlocking (critical) " + device + " " + serialNumber + " bootloader...")
+				warnln("5.1 Please use the volume and power keys on the device to unlock the bootloader (critical)")
+				fmt.Println()
+				warnln("  5.1a. Once " + device + " " + serialNumber + " boots, disconnect its cable and power it off")
+				warnln("  5.1b. Then, press volume down + power to boot it into fastboot mode, and connect the cable again.")
+				fmt.Println("The installation will resume automatically")
+				platformToolCommand = *fastboot
+				platformToolCommand.Args = append(platformToolCommand.Args, "-s", serialNumber, "flashing", "unlock_critical")
+				_ = platformToolCommand.Start()
+				time.Sleep(30 * time.Second)
 			}
 			fmt.Println("Flashing " + device + " " + serialNumber + " bootloader...")
 			flashAll := exec.Command("." + string(os.PathSeparator) + "flash-all" + func() string {
