@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed492ddf_523e46c0",
+        "filename": "flasher.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-04-15T17:09:52Z",
+      "side": 1,
+      "message": "Due to this",
+      "revId": "47dcf7209834ef8f82a36bc3267758982d39cfc5",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0",
+      "unresolved": true
+    }
+  ]
+}
