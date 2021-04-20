@@ -164,9 +164,6 @@ func getFactoryFolders() map[string]string {
 	for _, file := range files {
 		file := file.Name()
 		if strings.Contains(file, "factory") && strings.HasSuffix(file, ".zip") {
-			if strings.HasPrefix(file, "jasmine") {
-				platformToolsVersion = "29.0.6"
-			}
 			extracted, err := extractZip(path.Base(file), cwd)
 			if err != nil {
 				errorln("Cannot continue without a factory image. Exiting...", false)
@@ -185,17 +182,11 @@ func getFactoryFolders() map[string]string {
 
 func getPlatformTools() error {
 	plaformToolsUrlMap := map[[2]string]string{
-		[2]string{"darwin", "29.0.6"}:  "https://dl.google.com/android/repository/platform-tools_r29.0.6-darwin.zip",
-		[2]string{"linux", "29.0.6"}:   "https://dl.google.com/android/repository/platform-tools_r29.0.6-linux.zip",
-		[2]string{"windows", "29.0.6"}: "https://dl.google.com/android/repository/platform-tools_r29.0.6-windows.zip",
 		[2]string{"darwin", "31.0.2"}:  "https://dl.google.com/android/repository/42b081e1e068bb936179551684cdcb30315e245c.platform-tools_r31.0.2-darwin.zip",
 		[2]string{"linux", "31.0.2"}:   "https://dl.google.com/android/repository/platform-tools_r31.0.2-linux.zip",
 		[2]string{"windows", "31.0.2"}: "https://dl.google.com/android/repository/platform-tools_r31.0.2-windows.zip",
 	}
 	platformToolsChecksumMap := map[[2]string]string{
-		[2]string{"darwin", "29.0.6"}:  "7555e8e24958cae4cfd197135950359b9fe8373d4862a03677f089d215119a3a",
-		[2]string{"linux", "29.0.6"}:   "cc9e9d0224d1a917bad71fe12d209dfffe9ce43395e048ab2f07dcfc21101d44",
-		[2]string{"windows", "29.0.6"}: "247210e3c12453545f8e1f76e55de3559c03f2d785487b2e4ac00fe9698a039c",
 		[2]string{"darwin", "31.0.2"}:  "fd3415495a016d0b25678380a6c48dc909c27e9ab3a7783e4bd572e6fa3a8a9c",
 		[2]string{"linux", "31.0.2"}:   "cdde800a61766679abc5771596225b4e0081d01b20ffea51bde26c488bcbc677",
 		[2]string{"windows", "31.0.2"}: "d560cb8ded83ae04763b94632673481f14843a5969256569623cfeac82db4ba5",
