@@ -2,4 +2,4 @@
 host=review.calyxos.org
 port=29418
 project=AOSPAlliance/device-flasher
-defaultbranch=master
+defaultbranch=main
