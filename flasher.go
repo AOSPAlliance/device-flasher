@@ -43,7 +43,7 @@ var cwd = filepath.Dir(executable)
 var adb *exec.Cmd
 var fastboot *exec.Cmd
 
-var platformToolsVersion = "30.0.4"
+var platformToolsVersion = "31.0.3"
 var platformToolsZip string
 
 var deviceFactoryFolderMap map[string]string
@@ -188,17 +188,17 @@ func getPlatformTools() error {
 		[2]string{"darwin", "29.0.6"}:  "https://dl.google.com/android/repository/platform-tools_r29.0.6-darwin.zip",
 		[2]string{"linux", "29.0.6"}:   "https://dl.google.com/android/repository/platform-tools_r29.0.6-linux.zip",
 		[2]string{"windows", "29.0.6"}: "https://dl.google.com/android/repository/platform-tools_r29.0.6-windows.zip",
-		[2]string{"darwin", "30.0.4"}:  "https://dl.google.com/android/repository/fbad467867e935dce68a0296b00e6d1e76f15b15.platform-tools_r30.0.4-darwin.zip",
-		[2]string{"linux", "30.0.4"}:   "https://dl.google.com/android/repository/platform-tools_r30.0.4-linux.zip",
-		[2]string{"windows", "30.0.4"}: "https://dl.google.com/android/repository/platform-tools_r30.0.4-windows.zip",
+		[2]string{"darwin", "31.0.3"}:  "https://dl.google.com/android/repository/e8b2b4cbe47c728c1e54c5f524440b52d4e1a33c.platform-tools_r31.0.3-darwin",
+		[2]string{"linux", "31.0.3"}:   "https://dl.google.com/android/repository/platform-tools_r31.0.3-linux.zip",
+		[2]string{"windows", "31.0.3"}: "https://dl.google.com/android/repository/platform-tools_r31.0.3-windows.zip",
 	}
 	platformToolsChecksumMap := map[[2]string]string{
 		[2]string{"darwin", "29.0.6"}:  "7555e8e24958cae4cfd197135950359b9fe8373d4862a03677f089d215119a3a",
 		[2]string{"linux", "29.0.6"}:   "cc9e9d0224d1a917bad71fe12d209dfffe9ce43395e048ab2f07dcfc21101d44",
 		[2]string{"windows", "29.0.6"}: "247210e3c12453545f8e1f76e55de3559c03f2d785487b2e4ac00fe9698a039c",
-		[2]string{"darwin", "30.0.4"}:  "e0db2bdc784c41847f854d6608e91597ebc3cef66686f647125f5a046068a890",
-		[2]string{"linux", "30.0.4"}:   "5be24ed897c7e061ba800bfa7b9ebb4b0f8958cc062f4b2202701e02f2725891",
-		[2]string{"windows", "30.0.4"}: "413182fff6c5957911e231b9e97e6be4fc6a539035e3dfb580b5c54bd5950fee",
+		[2]string{"darwin", "31.0.3"}:  "773c08cfa31cec1bb4568ce5b374366e6310a5ffc21875024604a0f65bc831b1",
+		[2]string{"linux", "31.0.3"}:   "e6cb61b92b5669ed6fd9645fad836d8f888321cd3098b75588a54679c204b7dc",
+		[2]string{"windows", "31.0.3"}: "0f4b8fdd26af2c3733539d6eebb3c2ed499ea1d4bb1f4e0ecc2d6016961a6e24",
 	}
 	platformToolsOsVersion := [2]string{OS, platformToolsVersion}
 	_, err := os.Stat(path.Base(plaformToolsUrlMap[platformToolsOsVersion]))
