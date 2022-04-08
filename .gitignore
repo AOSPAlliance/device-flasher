@@ -5,6 +5,7 @@
 *.so
 *.dylib
 *.darwin
+*.darwin.*
 *.linux
 
 # Jetbrains IDE configuration files
