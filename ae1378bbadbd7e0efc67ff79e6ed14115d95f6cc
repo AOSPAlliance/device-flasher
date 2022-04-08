@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd855582_7b24c148",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-04-08T19:50:39Z",
+      "side": 1,
+      "message": "Bug: https://issuetracker.google.com/issues/228531953",
+      "revId": "ae1378bbadbd7e0efc67ff79e6ed14115d95f6cc",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
