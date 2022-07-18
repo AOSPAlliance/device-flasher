@@ -312,6 +312,22 @@ func getVar(prop string, device string) string {
 	return ""
 }
 
+func getUnlockAbility(device string) string {
+	platformToolCommand := *fastboot
+	platformToolCommand.Args = append(fastboot.Args, "-s", device, "flashing get_unlock_ability")
+	out, err := platformToolCommand.CombinedOutput()
+	if err != nil {
+		return ""
+	}
+	lines := strings.Split(string(out), "\n")
+	for _, line := range lines {
+		if strings.Contains(line, "get_unlock_ability") {
+			return strings.Trim(strings.Split(line, " ")[1], "\r")
+		}
+	}
+	return ""
+}
+
 func getProp(prop string, device string) string {
 	platformToolCommand := *adb
 	platformToolCommand.Args = append(adb.Args, "-s", device, "shell", "getprop", prop)
@@ -386,6 +402,12 @@ func flashDevices(devices map[string]string) {
 				fmt.Println("The installation will resume automatically")
 			}
 			for i := 0; getVar("unlocked", serialNumber) != "no"; i++ {
+				if device == "FP4" && getUnlockAbility(serialNumber) != "1" {
+					errorln("Not locking bootloader of "+device+" "+serialNumber, false)
+					errorln("fastboot flashing get_unlock_ability returned 0", false)
+					errorln("Please visit https://calyxos.org/FP4 for more information.", true)
+					return;
+				}
 				platformToolCommand = *fastboot
 				platformToolCommand.Args = append(platformToolCommand.Args, "-s", serialNumber, "flashing", "lock")
 				_ = platformToolCommand.Start()
