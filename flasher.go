@@ -53,12 +53,6 @@ var version string
 
 const OS = runtime.GOOS
 
-const (
-	UDEV_RULES = "# Google\nSUBSYSTEM==\"usb\", ATTR{idVendor}==\"18d1\", GROUP=\"sudo\"\n# Xiaomi\nSUBSYSTEM==\"usb\", ATTR{idVendor}==\"2717\", GROUP=\"sudo\"\n"
-	RULES_FILE = "98-device-flasher.rules"
-	RULES_PATH = "/etc/udev/rules.d/"
-)
-
 var (
 	Error = Red
 	Warn  = Yellow
@@ -83,7 +77,6 @@ func errorln(err interface{}, fatal bool) {
 	_, _ = fmt.Fprintln(os.Stderr, Error(err))
 	log.Close()
 	if fatal {
-		cleanup()
 		fmt.Println("Press enter to exit.")
 		_, _ = fmt.Scanln(&input)
 		os.Exit(1)
@@ -94,17 +87,7 @@ func warnln(warning interface{}) {
 	fmt.Println(Warn(warning))
 }
 
-func cleanup() {
-	if OS == "linux" {
-		_, err := os.Stat(RULES_PATH + RULES_FILE)
-		if !os.IsNotExist(err) {
-			_ = exec.Command("sudo", "rm", RULES_PATH+RULES_FILE).Run()
-		}
-	}
-}
-
 func main() {
-	defer cleanup()
 	_ = os.Remove("error.log")
 	fmt.Println("Android Factory Image Flasher version " + version)
 	// Map device codenames to their corresponding extracted factory image folders
@@ -116,10 +99,6 @@ func main() {
 	if err != nil {
 		errorln("Cannot continue without Android platform tools. Exiting...", false)
 		errorln(err, true)
-	}
-	if OS == "linux" {
-		// Linux weirdness
-		checkUdevRules()
 	}
 	platformToolCommand := *adb
 	platformToolCommand.Args = append(adb.Args, "start-server")
@@ -235,32 +214,6 @@ func getPlatformTools() error {
 	killPlatformTools()
 	_, err = extractZip(platformToolsZip, cwd)
 	return err
-}
-
-func checkUdevRules() {
-	_, err := os.Stat(RULES_PATH)
-	if os.IsNotExist(err) {
-		err = exec.Command("sudo", "mkdir", RULES_PATH).Run()
-		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
-			errorln(err, true)
-		}
-	}
-	_, err = os.Stat(RULES_FILE)
-	if os.IsNotExist(err) {
-		err = ioutil.WriteFile(RULES_FILE, []byte(UDEV_RULES), 0644)
-		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
-			errorln(err, true)
-		}
-		err = exec.Command("sudo", "cp", RULES_FILE, RULES_PATH).Run()
-		if err != nil {
-			errorln("Cannot continue without udev rules. Exiting...", false)
-			errorln(err, true)
-		}
-		_ = exec.Command("sudo", "udevadm", "control", "--reload-rules").Run()
-		_ = exec.Command("sudo", "udevadm", "trigger").Run()
-	}
 }
 
 func getDevices() map[string]string {
