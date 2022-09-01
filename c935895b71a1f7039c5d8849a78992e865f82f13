@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0516b9b_91f6265a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-09-01T11:57:30Z",
+      "side": 1,
+      "message": "`lipo` binary name may need updating depending on build environment setup",
+      "revId": "c935895b71a1f7039c5d8849a78992e865f82f13",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
