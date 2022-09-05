@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abb3c602_44f81517",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-09-05T18:38:38Z",
+      "side": 1,
+      "message": "It\u0027s a timing issue:\n\n`fastboot: usage: unknown command flashing get_unlock_ability`",
+      "revId": "c759818eec3789896c71b31185c2e0a9a995eb4d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
