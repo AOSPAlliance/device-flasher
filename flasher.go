@@ -297,6 +297,7 @@ func flashDevices(devices map[string]string) {
 		wg.Add(1)
 		go func(serialNumber, device string) {
 			defer wg.Done()
+			_ = os.Setenv("ANDROID_SERIAL", serial)
 			platformToolCommand := *adb
 			platformToolCommand.Args = append(platformToolCommand.Args, "-s", serialNumber, "reboot", "bootloader")
 			_ = platformToolCommand.Run()
