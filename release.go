@@ -1,6 +1,5 @@
-// +build !DEBUG, !PARALLEL
+// +build !PARALLEL
 
 package main
 
-const DEBUG = false
 const PARALLEL = false
