@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d2699af_334a3d02",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2022-10-14T23:20:21Z",
+      "side": 1,
+      "message": "Bump.\n\nNeeded for Pixel 7 after 13876: Merge tag \u0027android-13.0.0_r11\u0027 into staging/android13_merge-android-13.0.0_r11 | https://review.calyxos.org/c/CalyxOS/device_common/+/13876",
+      "revId": "705b077cafdb39ec605b444cd45b82d9b7874d5d",
+      "serverId": "35266860-6252-469c-a67d-185064479fc0"
+    }
+  ]
+}
